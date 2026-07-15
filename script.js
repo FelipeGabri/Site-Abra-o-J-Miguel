@@ -2,7 +2,7 @@
    SCRIPT DO SITE — Abraão J Miguel Advocacia do Agro
    Responsável por:
    1. Menu mobile (hambúrguer)
-   2. Carrossel da seção "Áreas de Atuação"
+   2. Acordeão da seção "Áreas de Atuação"
    3. Acordeão da seção "Dúvidas Frequentes"
    4. Destaque do link ativo no menu conforme a rolagem
    5. Animação leve de entrada dos blocos (.revelar) ao rolar a página
@@ -47,106 +47,107 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* ------------------------------------------------------------
-       2. CARROSSEL — SEÇÃO "ÁREAS DE ATUAÇÃO"
-       - A trilha (.trilha-servicos) rola horizontalmente com
-         scroll-snap. As setas e os pontos apenas movem o scroll
-         da trilha; o CSS cuida do alinhamento de cada card.
-       - O número de "páginas" é calculado a partir de quantos
-         cards cabem por vez (1 no mobile, 2 no tablet, 3 no
-         desktop), então os pontos se recalculam ao redimensionar.
+       1.5 COLUNAS INDEPENDENTES — SEÇÃO "ÁREAS DE ATUAÇÃO"
+       Antes os cards ficavam em CSS Grid: ao abrir um card, a LINHA
+       inteira (todas as colunas) crescia e empurrava tudo pra baixo.
+       Agora distribuímos os cards em colunas flex independentes
+       (uma <div class="coluna-servicos"> por coluna). Assim, abrir um
+       card só empurra os cards abaixo dele NA MESMA COLUNA.
+       O número de colunas muda por breakpoint (3 no desktop, 2 no
+       tablet, 1 no mobile) e é recalculado ao redimensionar a janela.
     ------------------------------------------------------------- */
 
     var trilhaServicos = document.getElementById('trilhaServicos');
-    var setaAnterior = document.getElementById('setaAnterior');
-    var setaProxima = document.getElementById('setaProxima');
-    var pontosCarrossel = document.getElementById('pontosCarrossel');
+    var colunasAtuais = 0;
 
-    if (trilhaServicos && setaAnterior && setaProxima && pontosCarrossel) {
-
-        var cartoes = Array.prototype.slice.call(trilhaServicos.children);
-        var paginaAtual = 0;
-        var totalPaginas = 1;
-
-        function cartoesPorPagina() {
-            var largura = window.innerWidth;
-            if (largura <= 768) return 1;
-            if (largura <= 1024) return 2;
-            return 3;
-        }
-
-        function construirPontos() {
-            pontosCarrossel.innerHTML = '';
-            var porPagina = cartoesPorPagina();
-            totalPaginas = Math.max(1, Math.ceil(cartoes.length / porPagina));
-
-            for (var i = 0; i < totalPaginas; i++) {
-                var ponto = document.createElement('button');
-                ponto.setAttribute('aria-label', 'Ir para o grupo ' + (i + 1) + ' de serviços');
-                ponto.addEventListener('click', function (indice) {
-                    return function () { irParaPagina(indice); };
-                }(i));
-                pontosCarrossel.appendChild(ponto);
-            }
-            atualizarEstadoVisual();
-        }
-
-        function irParaPagina(indice) {
-            var porPagina = cartoesPorPagina();
-            var indiceCartao = indice * porPagina;
-            var cartaoDestino = cartoes[Math.min(indiceCartao, cartoes.length - 1)];
-
-            if (cartaoDestino) {
-                trilhaServicos.scrollTo({
-                    left: cartaoDestino.offsetLeft,
-                    behavior: 'smooth'
-                });
-            }
-
-            paginaAtual = indice;
-            atualizarEstadoVisual();
-        }
-
-        function atualizarEstadoVisual() {
-            var pontos = pontosCarrossel.querySelectorAll('button');
-            pontos.forEach(function (ponto, indice) {
-                ponto.classList.toggle('ponto-ativo', indice === paginaAtual);
-            });
-
-            setaAnterior.disabled = paginaAtual <= 0;
-            setaProxima.disabled = paginaAtual >= totalPaginas - 1;
-        }
-
-        // Detecta em qual página o usuário está ao arrastar/rolar manualmente
-        var recalculandoPorScroll = false;
-        trilhaServicos.addEventListener('scroll', function () {
-            if (recalculandoPorScroll) return;
-            recalculandoPorScroll = true;
-
-            window.requestAnimationFrame(function () {
-                var porPagina = cartoesPorPagina();
-                var larguraCartao = cartoes[0] ? cartoes[0].offsetWidth + 24 : 1;
-                var indiceCartaoVisivel = Math.round(trilhaServicos.scrollLeft / larguraCartao);
-                paginaAtual = Math.min(
-                    totalPaginas - 1,
-                    Math.round(indiceCartaoVisivel / porPagina)
-                );
-                atualizarEstadoVisual();
-                recalculandoPorScroll = false;
-            });
-        });
-
-        setaAnterior.addEventListener('click', function () {
-            if (paginaAtual > 0) irParaPagina(paginaAtual - 1);
-        });
-
-        setaProxima.addEventListener('click', function () {
-            if (paginaAtual < totalPaginas - 1) irParaPagina(paginaAtual + 1);
-        });
-
-        window.addEventListener('resize', construirPontos);
-
-        construirPontos();
+    function calcularNumeroColunas() {
+        var largura = window.innerWidth;
+        if (largura <= 768) return 1;
+        if (largura <= 1024) return 2;
+        return 3;
     }
+
+    function distribuirCardsEmColunas() {
+        if (!trilhaServicos) return;
+
+        var numeroColunas = calcularNumeroColunas();
+        if (numeroColunas === colunasAtuais) return; // nada mudou, evita retrabalho
+        colunasAtuais = numeroColunas;
+
+        // Pega todos os cards (não importa se já estão dentro de colunas)
+        var cards = Array.prototype.slice.call(
+            trilhaServicos.querySelectorAll('.cartao-servico')
+        );
+
+        // Cria as novas colunas
+        var colunas = [];
+        for (var i = 0; i < numeroColunas; i++) {
+            var coluna = document.createElement('div');
+            coluna.className = 'coluna-servicos';
+            colunas.push(coluna);
+        }
+
+        // Distribui os cards nas colunas em zigue-zague (1,2,3,1,2,3...)
+        // preservando a ordem de leitura original.
+        cards.forEach(function (card, indice) {
+            colunas[indice % numeroColunas].appendChild(card);
+        });
+
+        // Limpa o container e insere as colunas já montadas
+        trilhaServicos.innerHTML = '';
+        colunas.forEach(function (coluna) {
+            trilhaServicos.appendChild(coluna);
+        });
+    }
+
+    distribuirCardsEmColunas();
+
+    var redimensionamentoServicos;
+    window.addEventListener('resize', function () {
+        clearTimeout(redimensionamentoServicos);
+        redimensionamentoServicos = setTimeout(distribuirCardsEmColunas, 150);
+    });
+
+
+    /* ------------------------------------------------------------
+       2. ACORDEÃO — SEÇÃO "ÁREAS DE ATUAÇÃO"
+       Clicar no cabeçalho (ícone + título) mostra ou esconde o
+       conteúdo do card. Só um card fica aberto por vez.
+    ------------------------------------------------------------- */
+
+    var cartoesServico = document.querySelectorAll('.cartao-servico');
+
+    cartoesServico.forEach(function (cartao) {
+        var cabecalho = cartao.querySelector('.cabecalho-servico');
+        var detalhes = cartao.querySelector('.detalhes-servico');
+
+        if (!cabecalho || !detalhes) return;
+
+        cabecalho.addEventListener('click', function () {
+            var estaAberto = cartao.classList.contains('aberto');
+
+            // Fecha todos os outros cards abertos
+            cartoesServico.forEach(function (outroCartao) {
+                if (outroCartao !== cartao) {
+                    outroCartao.classList.remove('aberto');
+                    var outrosDetalhes = outroCartao.querySelector('.detalhes-servico');
+                    var outroCabecalho = outroCartao.querySelector('.cabecalho-servico');
+                    if (outrosDetalhes) outrosDetalhes.style.maxHeight = null;
+                    if (outroCabecalho) outroCabecalho.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            if (estaAberto) {
+                cartao.classList.remove('aberto');
+                detalhes.style.maxHeight = null;
+                cabecalho.setAttribute('aria-expanded', 'false');
+            } else {
+                cartao.classList.add('aberto');
+                detalhes.style.maxHeight = detalhes.scrollHeight + 'px';
+                cabecalho.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
 
 
     /* ------------------------------------------------------------

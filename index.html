@@ -34,10 +34,6 @@
 
         <div class="identidade-escritorio">
             <img src="Imagens/Logo.png" alt="Logo Abraão J Miguel Advocacia do Agro" class="logo-escritorio">
-            <div>
-                <span class="nome-escritorio">Abraão J. Miguel</span>
-                <span class="assinatura-escritorio">Advocacia do Agro</span>
-            </div>
         </div>
 
         <button class="botao-hamburguer" id="botaoHamburguer" aria-label="Abrir menu" aria-expanded="false"
@@ -60,15 +56,16 @@
 
         <div class="acoes-cabecalho">
             <!-- TODO: trocar o "#" pelo link real do WhatsApp -->
-            <a href="#" class="botao-cabecalho">Falar com especialista</a>
+            <a href="https://wa.me/554396080007" class="botao-cabecalho" target="_blank" rel="noopener noreferrer">Falar
+                com especialista</a>
         </div>
 
     </header>
 
 
     <!-- ============================================================
-         SEÇÃO 1 — HERO / BANNER PRINCIPAL
-    ============================================================= -->
+     SEÇÃO 1 — HERO / BANNER PRINCIPAL
+============================================================= -->
     <section class="hero-principal" id="inicio">
 
         <video class="video-fundo" autoplay muted loop playsinline>
@@ -79,8 +76,8 @@
 
         <div class="grade-hero">
 
+            <!-- LADO ESQUERDO: Conteúdo e Textos -->
             <div class="conteudo-hero revelar">
-
                 <span class="etiqueta-secao">Advocacia especializada no agronegócio</span>
 
                 <h1>“O campo é o seu legado. A lei é o nosso campo de batalha.”</h1>
@@ -93,11 +90,15 @@
                 </p>
 
                 <div class="botoes-hero">
-                    <!-- TODO: trocar o "#" pelo link real do WhatsApp -->
-                    <a href="https://wa.me/554396080007" class="botao-principal" target="_blank" rel="noopener noreferrer">Fale com um especialista</a>
+                    <a href="https://wa.me/554396080007" class="botao-principal" target="_blank"
+                        rel="noopener noreferrer">Fale com um especialista</a>
                     <a href="#servicos" class="botao-secundario">Conhecer áreas de atuação</a>
                 </div>
+            </div>
 
+            <!-- LADO DIREITO: Logo Grande -->
+            <div class="logo-hero-container revelar">
+                <img src="Imagens/Logo.png" alt="Logo Abraão J. Miguel Advocacia do Agro" class="logo-hero-grande">
             </div>
 
         </div>
@@ -161,10 +162,10 @@
 
             <div class="ponto-impacto">
                 <span class="icone-ponto">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
-                        stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-people" viewBox="0 0 16 16">
                         <path
-                            d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20c0-3 3-5 6-5s6 2 6 5M10 20c0-3 3-5 6-5s6 2 6 5" />
+                            d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
                     </svg>
                 </span>
                 <p><strong>Atendimento humano e direto</strong> Você fala com quem decide, não com estagiário.</p>
@@ -207,360 +208,459 @@
 
                 <!-- Área 1 — Crédito Rural -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 10 12 4l9 6M4 10v10h16V10M9 21v-6h6v6" />
-                        </svg></span>
-                    <h3>Crédito Rural</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-house-door" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                            </svg>
+                        </span>
+                        <h3>Crédito Rural</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Desbloqueie o acesso ao crédito que você merece"</p>
-                    <p>
-                        Ajudamos produtores rurais e empresas do agronegócio a acessar,
-                        revisar e renegociar operações de crédito rural em todo o Brasil —
-                        PRONAF, PRONAMP, custeio, investimento e outras linhas. Se o banco
-                        negou, complicou ou cobrou mais do que deveria, podemos agir.
-                    </p>
-                    <p class="rotulo-lista">Situações que resolvemos:</p>
-                    <ul>
-                        <li>Negativa de crédito sem justificativa adequada</li>
-                        <li>Taxas abusivas em contratos rurais</li>
-                        <li>Contestação de cálculos bancários</li>
-                        <li>Revisão de contratos antes da assinatura</li>
-                        <li>Defesa em execuções de crédito rural</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Ajudamos produtores rurais e empresas do agronegócio a acessar,
+                            revisar e renegociar operações de crédito rural em todo o Brasil —
+                            PRONAF, PRONAMP, custeio, investimento e outras linhas. Se o banco
+                            negou, complicou ou cobrou mais do que deveria, podemos agir.
+                        </p>
+                        <p class="rotulo-lista">Situações que resolvemos:</p>
+                        <ul>
+                            <li>Negativa de crédito sem justificativa adequada</li>
+                            <li>Taxas abusivas em contratos rurais</li>
+                            <li>Contestação de cálculos bancários</li>
+                            <li>Revisão de contratos antes da assinatura</li>
+                            <li>Defesa em execuções de crédito rural</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 2 — Financeiro e Reestruturação de Dívidas -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 17 9 11l4 4 8-8M15 6h6v6" />
-                        </svg></span>
-                    <h3>Financeiro e Reestruturação de Dívidas</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 17 9 11l4 4 8-8M15 6h6v6" />
+                            </svg></span>
+                        <h3>Financeiro e Reestruturação de Dívidas</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Dívida não é sentença. É um problema que tem solução."</p>
-                    <p>
-                        Pressão de banco, dívida acumulada, ameaça de execução? Nós
-                        entramos na negociação ao seu lado — com estratégia jurídica,
-                        conhecimento técnico e experiência para reestruturar as suas
-                        obrigações financeiras e encontrar o melhor caminho para a sua
-                        realidade.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Revisão e renegociação de contratos rurais em inadimplência</li>
-                        <li>Alongamento de dívidas junto a instituições financeiras</li>
-                        <li>Ações judiciais para renegociação forçada</li>
-                        <li>Defesas em execuções extrajudiciais e judiciais</li>
-                        <li>Planejamento financeiro jurídico preventivo para o produtor</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Pressão de banco, dívida acumulada, ameaça de execução? Nós
+                            entramos na negociação ao seu lado — com estratégia jurídica,
+                            conhecimento técnico e experiência para reestruturar as suas
+                            obrigações financeiras e encontrar o melhor caminho para a sua
+                            realidade.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Revisão e renegociação de contratos rurais em inadimplência</li>
+                            <li>Alongamento de dívidas junto a instituições financeiras</li>
+                            <li>Ações judiciais para renegociação forçada</li>
+                            <li>Defesas em execuções extrajudiciais e judiciais</li>
+                            <li>Planejamento financeiro jurídico preventivo para o produtor</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 3 — Contratos Agrários -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7 3h10l3 3v15H7z" />
-                            <path d="M10 3v6H4l6-6ZM9 13l2 2 4-4" />
-                        </svg></span>
-                    <h3>Contratos Agrários</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                                <path
+                                    d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
+                                <path
+                                    d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                            </svg>
+                        </span>
+                        <h3>Contratos Agrários</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Cada palavra de um contrato pode custar caro — ou proteger tudo que
                         você tem."</p>
-                    <p>
-                        Arrendamento, parceria rural, compra e venda de safra, integração e
-                        cooperação agroindustrial: os contratos agrários têm regras
-                        específicas que a maioria desconhece. Garantimos que você esteja
-                        protegido em todas as relações contratuais do campo.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Elaboração e revisão de contratos de arrendamento e parceria rural</li>
-                        <li>Contratos de compra e venda de produção (soja, milho, cana, café e outros)</li>
-                        <li>Contratos de integração com agroindústrias</li>
-                        <li>Resolução de conflitos e rescisões contratuais</li>
-                        <li>Assessoria em contratos com cooperativas</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Arrendamento, parceria rural, compra e venda de safra, integração e
+                            cooperação agroindustrial: os contratos agrários têm regras
+                            específicas que a maioria desconhece. Garantimos que você esteja
+                            protegido em todas as relações contratuais do campo.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Elaboração e revisão de contratos de arrendamento e parceria rural</li>
+                            <li>Contratos de compra e venda de produção (soja, milho, cana, café e outros)</li>
+                            <li>Contratos de integração com agroindústrias</li>
+                            <li>Resolução de conflitos e rescisões contratuais</li>
+                            <li>Assessoria em contratos com cooperativas</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 4 — Previdenciário Rural -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3 4 6v6c0 5 4 8 8 9 4-1 8-4 8-9V6l-8-3Z" />
-                        </svg></span>
-                    <h3>Previdenciário Rural</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-shield-check" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56" />
+                                <path
+                                    d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                            </svg>
+                        </span>
+                        <h3>Previdenciário Rural</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Você trabalhou a vida toda na terra. Seus direitos previdenciários
                         merecem atenção especializada."</p>
-                    <p>
-                        O produtor rural tem direitos previdenciários específicos — e
-                        muitas vezes deixa de recebê-los por falta de conhecimento ou
-                        orientação. Atuamos para garantir que você e sua família recebam o
-                        que têm direito.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Aposentadoria rural por idade (segurado especial)</li>
-                        <li>Aposentadoria por invalidez e auxílio-doença do trabalhador rural</li>
-                        <li>Pensão por morte e salário-maternidade rural</li>
-                        <li>Recursos e contestações de benefícios negados pelo INSS</li>
-                        <li>Regularização de contribuições e vínculos rurais</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            O produtor rural tem direitos previdenciários específicos — e
+                            muitas vezes deixa de recebê-los por falta de conhecimento ou
+                            orientação. Atuamos para garantir que você e sua família recebam o
+                            que têm direito.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Aposentadoria rural por idade (segurado especial)</li>
+                            <li>Aposentadoria por invalidez e auxílio-doença do trabalhador rural</li>
+                            <li>Pensão por morte e salário-maternidade rural</li>
+                            <li>Recursos e contestações de benefícios negados pelo INSS</li>
+                            <li>Regularização de contribuições e vínculos rurais</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 5 — Planejamento Patrimonial e Sucessório -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 21h18M6 21V10l6-5 6 5v11M10 21v-6h4v6" />
-                        </svg></span>
-                    <h3>Planejamento Patrimonial e Sucessório</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-house-door" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                            </svg>
+                        </span>
+                        <h3>Planejamento Patrimonial e Sucessório</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"O que você construiu deve durar além de você. Proteja o patrimônio
                         familiar agora."</p>
-                    <p>
-                        Fazendas, terras, equipamentos, cotas e empresas rurais
-                        representam décadas de trabalho. Sem um planejamento adequado,
-                        disputas de herança e impostos podem destruir em meses o que levou
-                        gerações para construir.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Estruturação de holdings rurais familiares</li>
-                        <li>Planejamento sucessório com foco no agronegócio</li>
-                        <li>Inventários de bens rurais</li>
-                        <li>Doações com reserva de usufruto</li>
-                        <li>Testamentos e estratégias de transmissão de propriedades rurais</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Fazendas, terras, equipamentos, cotas e empresas rurais
+                            representam décadas de trabalho. Sem um planejamento adequado,
+                            disputas de herança e impostos podem destruir em meses o que levou
+                            gerações para construir.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Estruturação de holdings rurais familiares</li>
+                            <li>Planejamento sucessório com foco no agronegócio</li>
+                            <li>Inventários de bens rurais</li>
+                            <li>Doações com reserva de usufruto</li>
+                            <li>Testamentos e estratégias de transmissão de propriedades rurais</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 6 — Regularização Fundiária -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11Z" />
-                            <circle cx="12" cy="10" r="2.5" />
-                        </svg></span>
-                    <h3>Regularização Fundiária</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11Z" />
+                                <circle cx="12" cy="10" r="2.5" />
+                            </svg></span>
+                        <h3>Regularização Fundiária</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Terra sem escritura é terra em risco. Vamos regularizar o que é seu."
                     </p>
-                    <p>
-                        Milhares de propriedades rurais no Brasil ainda têm pendências de
-                        regularização — georreferenciamento, matrícula, INCRA, CAR, ITR.
-                        Nós resolvemos essas situações para que você tenha segurança
-                        jurídica plena sobre o seu imóvel.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Georreferenciamento e regularização no INCRA</li>
-                        <li>Cadastro Ambiental Rural (CAR) e adequação legal</li>
-                        <li>Usucapião rural</li>
-                        <li>Regularização de posse e domínio de terras</li>
-                        <li>Desmembramento, remembramento e retificação de área</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Milhares de propriedades rurais no Brasil ainda têm pendências de
+                            regularização — georreferenciamento, matrícula, INCRA, CAR, ITR.
+                            Nós resolvemos essas situações para que você tenha segurança
+                            jurídica plena sobre o seu imóvel.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Georreferenciamento e regularização no INCRA</li>
+                            <li>Cadastro Ambiental Rural (CAR) e adequação legal</li>
+                            <li>Usucapião rural</li>
+                            <li>Regularização de posse e domínio de terras</li>
+                            <li>Desmembramento, remembramento e retificação de área</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 7 — Licenciamento Rural e Ambiental -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 21c-4-1-7-4-7-9 5 0 8 3 9 7M15 21c4-1 7-4 7-9-5 0-8 3-9 7Zm-3 0v-8" />
-                        </svg></span>
-                    <h3>Licenciamento Rural e Ambiental</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21c-4-1-7-4-7-9 5 0 8 3 9 7M15 21c4-1 7-4 7-9-5 0-8 3-9 7Zm-3 0v-8" />
+                            </svg></span>
+                        <h3>Licenciamento Rural e Ambiental</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Produzir em conformidade é produzir com segurança."</p>
-                    <p>
-                        Licenças ambientais, outorgas de água, reserva legal, APP — o
-                        produtor rural precisa estar regularizado para operar, vender e
-                        financiar sua produção. Atuamos em todo o processo de
-                        licenciamento para que você produza sem riscos jurídicos.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Licenciamento ambiental de atividades rurais e agroindustriais</li>
-                        <li>Regularização de Áreas de Preservação Permanente (APP) e Reserva Legal</li>
-                        <li>Outorga de uso de recursos hídricos</li>
-                        <li>Defesa em autuações e embargos ambientais</li>
-                        <li>Recuperação de áreas degradadas — aspectos jurídicos</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Licenças ambientais, outorgas de água, reserva legal, APP — o
+                            produtor rural precisa estar regularizado para operar, vender e
+                            financiar sua produção. Atuamos em todo o processo de
+                            licenciamento para que você produza sem riscos jurídicos.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Licenciamento ambiental de atividades rurais e agroindustriais</li>
+                            <li>Regularização de Áreas de Preservação Permanente (APP) e Reserva Legal</li>
+                            <li>Outorga de uso de recursos hídricos</li>
+                            <li>Defesa em autuações e embargos ambientais</li>
+                            <li>Recuperação de áreas degradadas — aspectos jurídicos</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 8 — Direito Ambiental -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z" />
-                        </svg></span>
-                    <h3>Direito Ambiental</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-droplet" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z" />
+                                <path fill-rule="evenodd"
+                                    d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z" />
+                            </svg>
+                        </span>
+                        <h3>Direito Ambiental</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"A sustentabilidade do seu negócio começa com conformidade ambiental."
                     </p>
-                    <p>
-                        O agronegócio brasileiro está cada vez mais sob escrutínio
-                        ambiental — de clientes, financiadores e órgãos reguladores.
-                        Oferecemos suporte jurídico completo para que sua operação esteja
-                        em conformidade e protegida de autuações, multas e embargos.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Defesa em processos administrativos e judiciais ambientais</li>
-                        <li>Assessoria em compliance ambiental para propriedades e agroindústrias</li>
-                        <li>Recursos contra multas do IBAMA, ICMBio e órgãos estaduais</li>
-                        <li>Adequação à legislação florestal (Código Florestal)</li>
-                        <li>Gestão jurídica de passivos ambientais rurais</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            O agronegócio brasileiro está cada vez mais sob escrutínio
+                            ambiental — de clientes, financiadores e órgãos reguladores.
+                            Oferecemos suporte jurídico completo para que sua operação esteja
+                            em conformidade e protegida de autuações, multas e embargos.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Defesa em processos administrativos e judiciais ambientais</li>
+                            <li>Assessoria em compliance ambiental para propriedades e agroindústrias</li>
+                            <li>Recursos contra multas do IBAMA, ICMBio e órgãos estaduais</li>
+                            <li>Adequação à legislação florestal (Código Florestal)</li>
+                            <li>Gestão jurídica de passivos ambientais rurais</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 9 — Tributário Agronegócio -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="9" />
-                            <path
-                                d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2-3 2.5-3 1.1-3 2.5 1.3 2.5 3 2.5 3-1.1 3-2.5" />
-                        </svg></span>
-                    <h3>Tributário Agronegócio</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
+                            </svg>
+                        </span>
+                        <h3>Tributário Agronegócio</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Pagar menos imposto de forma legal é uma estratégia inteligente de
                         negócio."</p>
-                    <p>
-                        O agronegócio tem uma tributação complexa e cheia de
-                        oportunidades legais de economia. Com planejamento tributário
-                        especializado, seu negócio rural pode reduzir a carga fiscal,
-                        recuperar créditos e crescer com mais eficiência.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Planejamento tributário para produtores rurais e empresas do agro</li>
-                        <li>Recuperação de tributos pagos indevidamente (ITR, PIS/COFINS, ICMS)</li>
-                        <li>Defesa em autuações fiscais</li>
-                        <li>Estruturação tributária de holdings rurais</li>
-                        <li>Regimes de tributação: Lucro Real, Presumido e Simples para o agro</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            O agronegócio tem uma tributação complexa e cheia de
+                            oportunidades legais de economia. Com planejamento tributário
+                            especializado, seu negócio rural pode reduzir a carga fiscal,
+                            recuperar créditos e crescer com mais eficiência.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Planejamento tributário para produtores rurais e empresas do agro</li>
+                            <li>Recuperação de tributos pagos indevidamente (ITR, PIS/COFINS, ICMS)</li>
+                            <li>Defesa em autuações fiscais</li>
+                            <li>Estruturação tributária de holdings rurais</li>
+                            <li>Regimes de tributação: Lucro Real, Presumido e Simples para o agro</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 10 — Trabalhista Patronal -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20c0-3 3-5 6-5s6 2 6 5M10 20c0-3 3-5 6-5s6 2 6 5" />
-                        </svg></span>
-                    <h3>Trabalhista Patronal</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people" viewBox="0 0 16 16">
+                                <path
+                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                            </svg>
+                        </span>
+                        <h3>Trabalhista Patronal</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Sua equipe é a base da sua produção. Proteção jurídica evita passivos
                         milionários."</p>
-                    <p>
-                        Contratação de trabalhadores rurais, sazonalidade, turma
-                        volante, relações com cooperativas de trabalho — o campo tem
-                        suas próprias regras trabalhistas, e o não cumprimento pode
-                        custar muito caro. Protegemos o empregador rural com assessoria
-                        preventiva e atuação em litígios.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Defesa em reclamações trabalhistas rurais</li>
-                        <li>Elaboração de contratos de trabalho rural (safristas, mensalistas, diaristas)</li>
-                        <li>Compliance trabalhista para propriedades e agroindústrias</li>
-                        <li>Gestão de riscos em terceirizações e cooperativas de trabalho</li>
-                        <li>Ações anulatórias e defesas em autuações do Ministério do Trabalho</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Contratação de trabalhadores rurais, sazonalidade, turma
+                            volante, relações com cooperativas de trabalho — o campo tem
+                            suas próprias regras trabalhistas, e o não cumprimento pode
+                            custar muito caro. Protegemos o empregador rural com assessoria
+                            preventiva e atuação em litígios.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Defesa em reclamações trabalhistas rurais</li>
+                            <li>Elaboração de contratos de trabalho rural (safristas, mensalistas, diaristas)</li>
+                            <li>Compliance trabalhista para propriedades e agroindústrias</li>
+                            <li>Gestão de riscos em terceirizações e cooperativas de trabalho</li>
+                            <li>Ações anulatórias e defesas em autuações do Ministério do Trabalho</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 11 — Societário Agronegócio -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="7" width="18" height="13" rx="1.5" />
-                            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                        </svg></span>
-                    <h3>Societário Agronegócio</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="7" width="18" height="13" rx="1.5" />
+                                <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg></span>
+                        <h3>Societário Agronegócio</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"A estrutura jurídica certa transforma um negócio familiar em um
                         legado empresarial."</p>
-                    <p>
-                        Da constituição da empresa ao contrato entre sócios, passando
-                        por fusões, aquisições e reorganizações societárias — atuamos
-                        no Direito Societário com foco nas particularidades do setor
-                        agropecuário e agroindustrial.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Constituição de empresas rurais (SRL, SA, LTDA, holding)</li>
-                        <li>Contratos sociais e acordos de sócios para o agro</li>
-                        <li>Reorganizações e reestruturações societárias</li>
-                        <li>Due diligence em operações de fusão e aquisição no agronegócio</li>
-                        <li>Dissolução e liquidação de sociedades rurais</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Da constituição da empresa ao contrato entre sócios, passando
+                            por fusões, aquisições e reorganizações societárias — atuamos
+                            no Direito Societário com foco nas particularidades do setor
+                            agropecuário e agroindustrial.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Constituição de empresas rurais (SRL, SA, LTDA, holding)</li>
+                            <li>Contratos sociais e acordos de sócios para o agro</li>
+                            <li>Reorganizações e reestruturações societárias</li>
+                            <li>Due diligence em operações de fusão e aquisição no agronegócio</li>
+                            <li>Dissolução e liquidação de sociedades rurais</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 12 — Assessoramento para Aquisição de Imóveis Rurais -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 10 12 4l9 6M4 10v10h16V10M9 21v-6h6v6" />
-                        </svg></span>
-                    <h3>Assessoramento para Aquisição de Imóveis Rurais</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-house-door" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                            </svg>
+                        </span>
+                        <h3>Assessoramento para Aquisição de Imóveis Rurais</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Comprar terra é um dos maiores investimentos da sua vida. Faça isso
                         com segurança jurídica."</p>
-                    <p>
-                        Adquirir uma propriedade rural exige muito mais do que o preço
-                        certo. É preciso verificar a cadeia dominial, débitos,
-                        litígios, situação ambiental, restrições e inúmeros outros
-                        fatores que podem transformar o sonho em pesadelo. Nós
-                        garantimos que sua compra seja segura.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Due diligence completa de imóveis rurais</li>
-                        <li>Análise da cadeia dominial e matrícula</li>
-                        <li>Verificação de débitos de ITR, INCRA e ambientais</li>
-                        <li>Acompanhamento de escritura pública e registro em cartório</li>
-                        <li>Negociação e elaboração de contratos de compra e venda rural</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            Adquirir uma propriedade rural exige muito mais do que o preço
+                            certo. É preciso verificar a cadeia dominial, débitos,
+                            litígios, situação ambiental, restrições e inúmeros outros
+                            fatores que podem transformar o sonho em pesadelo. Nós
+                            garantimos que sua compra seja segura.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Due diligence completa de imóveis rurais</li>
+                            <li>Análise da cadeia dominial e matrícula</li>
+                            <li>Verificação de débitos de ITR, INCRA e ambientais</li>
+                            <li>Acompanhamento de escritura pública e registro em cartório</li>
+                            <li>Negociação e elaboração de contratos de compra e venda rural</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 13 — Mercado de Capitais e Instrumentos Financeiros do Agro -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19V9M10 19V5M16 19v-7M22 19H2" />
-                        </svg></span>
-                    <h3>Mercado de Capitais e Instrumentos Financeiros do Agro</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1zm1 12h2V2h-2zm-3 0V7H7v7zm-5 0v-3H2v3z" />
+                            </svg>
+                        </span>
+                        <h3>Mercado de Capitais e Instrumentos Financeiros do Agro</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"O agronegócio tem acesso a instrumentos financeiros poderosos. Você
                         está usando os certos?"</p>
-                    <p>
-                        CPR, CRA, CRI, LCA, FIAgro — o mercado de capitais oferece
-                        soluções de captação e investimento específicas para o
-                        agronegócio. Assessoramos produtores, cooperativas e empresas
-                        na estruturação e utilização desses instrumentos de forma
-                        segura e eficiente.
-                    </p>
-                    <p class="rotulo-lista">Nossa atuação:</p>
-                    <ul>
-                        <li>Estruturação e emissão de CPR (Cédula do Produtor Rural)</li>
-                        <li>Assessoria jurídica em CRA (Certificado de Recebíveis do Agronegócio)</li>
-                        <li>Operações com LCA (Letra de Crédito do Agronegócio)</li>
-                        <li>Participação em FIAgro (Fundos de Investimento do Agronegócio)</li>
-                        <li>Assessoria em captação via mercado de capitais para o agro</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            CPR, CRA, CRI, LCA, FIAgro — o mercado de capitais oferece
+                            soluções de captação e investimento específicas para o
+                            agronegócio. Assessoramos produtores, cooperativas e empresas
+                            na estruturação e utilização desses instrumentos de forma
+                            segura e eficiente.
+                        </p>
+                        <p class="rotulo-lista">Nossa atuação:</p>
+                        <ul>
+                            <li>Estruturação e emissão de CPR (Cédula do Produtor Rural)</li>
+                            <li>Assessoria jurídica em CRA (Certificado de Recebíveis do Agronegócio)</li>
+                            <li>Operações com LCA (Letra de Crédito do Agronegócio)</li>
+                            <li>Participação em FIAgro (Fundos de Investimento do Agronegócio)</li>
+                            <li>Assessoria em captação via mercado de capitais para o agro</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <!-- Área 14 — Relações Governamentais -->
                 <article class="cartao-servico">
-                    <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 21V4l14 4-14 4" />
-                        </svg></span>
-                    <h3>Relações Governamentais</h3>
+                    <button class="cabecalho-servico" type="button" aria-expanded="false">
+                        <span class="icone-servico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 21V4l14 4-14 4" />
+                            </svg></span>
+                        <h3>Relações Governamentais</h3>
+                        <span class="icone-expandir-servico">+</span>
+                    </button>
                     <p class="frase-impacto-card">"Navegar entre políticas públicas, programas e regulações exige quem
                         conhece o sistema."</p>
-                    <p>
-                        O agronegócio é um dos setores mais regulados e dependentes de
-                        políticas públicas do Brasil. Atuamos no relacionamento
-                        estratégico com órgãos públicos, na captação de recursos
-                        governamentais e na defesa dos interesses do produtor frente ao
-                        Estado.
-                    </p>
-                    <p class="rotulo-lista">O que fazemos:</p>
-                    <ul>
-                        <li>Assessoria em programas governamentais (PAC Rural, Fundos Constitucionais, etc.)</li>
-                        <li>Relacionamento institucional com MAPA, INCRA, SEAD e outros órgãos</li>
-                        <li>Recursos administrativos junto a órgãos reguladores</li>
-                        <li>Defesa em processos administrativos fiscais e regulatórios</li>
-                        <li>Lobby regulatório e representação de interesses setoriais</li>
-                    </ul>
+                    <div class="detalhes-servico">
+                        <p>
+                            O agronegócio é um dos setores mais regulados e dependentes de
+                            políticas públicas do Brasil. Atuamos no relacionamento
+                            estratégico com órgãos públicos, na captação de recursos
+                            governamentais e na defesa dos interesses do produtor frente ao
+                            Estado.
+                        </p>
+                        <p class="rotulo-lista">O que fazemos:</p>
+                        <ul>
+                            <li>Assessoria em programas governamentais (PAC Rural, Fundos Constitucionais, etc.)</li>
+                            <li>Relacionamento institucional com MAPA, INCRA, SEAD e outros órgãos</li>
+                            <li>Recursos administrativos junto a órgãos reguladores</li>
+                            <li>Defesa em processos administrativos fiscais e regulatórios</li>
+                            <li>Lobby regulatório e representação de interesses setoriais</li>
+                        </ul>
+                    </div>
                 </article>
 
             </div>
@@ -627,8 +727,8 @@
                     </svg></span>
                 <h3>Você fala com o advogado, não com o sistema</h3>
                 <p>
-                    Seu caso é analisado e conduzido por Abraão J Miguel —
-                    advogado especialista com atuação direta nos casos. Sem
+                    Seu caso é analisado e conduzido pela equipe de
+                    advogados especialistas com atuação direta nos casos. Sem
                     terceirizações, sem enrolação, sem você explicar o problema
                     cinco vezes para cinco pessoas diferentes.
                 </p>
@@ -883,17 +983,8 @@
                         a realidade de quem vive do campo.
                     </p>
 
-                    <p>
-                        <strong>Abraão J Miguel</strong> é advogado especialista em
-                        Direito do Agronegócio, com atuação em todo o território
-                        nacional. Com raízes no campo paranaense e visão estratégica
-                        para o agronegócio brasileiro, o escritório atende produtores,
-                        cooperativas e empresas do setor em qualquer estado do Brasil —
-                        presencialmente ou por atendimento remoto.
-                    </p>
-
                     <p class="citacao-advogado">
-                        "A minha missão é garantir que nenhum produtor rural perca o
+                        "A nossa missão é garantir que nenhum produtor rural perca o
                         que construiu por falta de suporte jurídico qualificado."
                         <span class="autor-citacao">— Abraão J Miguel, Advogado</span>
                     </p>
@@ -928,7 +1019,8 @@
                         <div>
                             <h4>Telefone / WhatsApp</h4>
                             <!-- TODO: inserir telefone real -->
-                            <a href="https://wa.me/554396080007" target="_blank" rel="noopener noreferrer">(43) 99608-0007</a>
+                            <a href="https://wa.me/554396080007" target="_blank"
+                                rel="noopener noreferrer">(43)99608-0007</a>
                         </div>
                     </div>
 
@@ -943,7 +1035,8 @@
                         <div>
                             <h4>E-mail</h4>
                             <!-- TODO: inserir e-mail real -->
-                            <a href="mailto:contato@exemplo.com.br" target="_blank" rel="noopener noreferrer">contato@exemplo.com.br</a>
+                            <a href="mailto:contato@exemplo.com.br" target="_blank"
+                                rel="noopener noreferrer">contato@exemplo.com.br</a>
                         </div>
                     </div>
 
@@ -1042,21 +1135,6 @@
                 </div>
             </div>
 
-            <div class="item-duvida">
-                <button class="pergunta-duvida" aria-expanded="false">
-                    <span>Quanto custa uma consulta inicial?</span>
-                    <span class="icone-duvida">+</span>
-                </button>
-                <div class="resposta-duvida">
-                    <p>
-                        <!-- TODO: ajustar conforme a política real do escritório -->
-                        O primeiro contato é gratuito e serve para entender sua
-                        situação. Os honorários são definidos apenas depois dessa
-                        análise inicial, de forma transparente.
-                    </p>
-                </div>
-            </div>
-
         </div>
 
     </section>
@@ -1084,7 +1162,8 @@
 
             <div class="botoes-cta-final">
                 <!-- TODO: trocar o "#" pelo link real do WhatsApp -->
-                <a href="https://wa.me/554396080007" class="botao-principal" target="_blank" rel="noopener noreferrer">Quero falar com um especialista agora</a>
+                <a href="https://wa.me/554396080007" class="botao-principal" target="_blank"
+                    rel="noopener noreferrer">Quero falar com um especialista agora</a>
                 <a href="#servicos" class="botao-secundario">Conhecer nossos serviços</a>
             </div>
 
@@ -1102,7 +1181,8 @@
          BOTÃO FLUTUANTE DO WHATSAPP
     ============================================================= -->
     <!-- TODO: trocar o "#" pelo link real do WhatsApp -->
-    <a href="https://wa.me/554396080007" class="botao-whatsapp-flutuante" aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+    <a href="https://wa.me/554396080007" class="botao-whatsapp-flutuante" aria-label="Falar no WhatsApp" target="_blank"
+        rel="noopener">
         <svg viewBox="0 0 24 24" fill="#ffffff">
             <path
                 d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.52 3.62 1.42 5.12L2 22l5.14-1.5a9.9 9.9 0 0 0 4.9 1.3h.01c5.46 0 9.9-4.45 9.9-9.9C21.96 6.45 17.5 2 12.04 2Zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.15-4.94-4.35-.15-.2-1.18-1.57-1.18-3 0-1.42.75-2.11 1.02-2.4.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.6.82 2.06.9 2.2.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.66 2.06 1.14 1.02 2.1 1.34 2.4 1.49.3.15.48.13.66-.05.18-.19.77-.9.98-1.21.2-.31.41-.26.68-.16.28.1 1.77.83 2.07.99.3.15.5.23.57.36.08.13.08.75-.16 1.44Z" />
@@ -1111,27 +1191,86 @@
 
 
     <!-- ============================================================
-         RODAPÉ
+    RODAPÉ
     ============================================================= -->
     <footer class="rodape-site">
+        <div class="rodape-container">
 
-        <span class="nome-escritorio">Abraão J. Miguel Advocacia do Agro</span>
+            <!-- Coluna 1: Logo e Marca -->
+            <div class="rodape-coluna marca-rodape">
+                <img src="Imagens/Logo.png" alt="Logo Abraão J. Miguel Advocacia do Agro" class="logo-rodape">
+                <span class="nome-escritorio">Abraão J. Miguel Advocacia do Agro</span>
+                <p class="direitos">
+                    © 2026 Abraão J Miguel Advocacia do Agro.<br>
+                    Todos os direitos reservados.
+                </p>
+            </div>
 
-        <div class="redes-sociais-rodape">
-            <a href="#" target="_blank" rel="noopener">Instagram</a>
-            <a href="#" target="_blank" rel="noopener">YouTube</a>
-            <a href="#" target="_blank" rel="noopener">TikTok</a>
+            <!-- Coluna 2: Contato e Endereço -->
+            <div class="rodape-coluna contato-rodape">
+                <h3 class="titulo-coluna">Contato</h3>
+                <ul class="lista-contato">
+                    <li>
+                        <strong>WhatsApp:</strong>
+                        <a href="https://wa.me/554396080007" target="_blank" rel="noopener">(43) 99608-0007</a>
+                    </li>
+                    <li>
+                        <strong>E-mail:</strong>
+                        <a href="mailto:contato@abraaomiguel.com.br">contato@abraaomiguel.com.br</a>
+                    </li>
+                    <li class="endereco-texto">
+                        <strong>Endereço:</strong><br>
+                        Rua Rui Barbosa, 790 - Centro<br>Ibaiti - PR — CEP 84900-000
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Coluna 3: Links e Redes Sociais -->
+            <div class="rodape-coluna links-redes-rodape">
+                <h3 class="titulo-coluna">Links</h3>
+                <div class="links-institucionais-rodape">
+                    <a href="#">Avalie-nos no Google</a>
+                    <a href="#">Política de Privacidade</a>
+                </div>
+
+                <h3 class="titulo-coluna mt-redes">Siga-nos</h3>
+                <div class="redes-sociais-rodape">
+                    <!--Instagram-->
+                    <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+                        </svg>
+                    </a>
+                    <!--WhatsApp-->
+                    <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                        </svg>
+                    </a>
+                    <!--TikTok-->
+                    <a href="#" target="_blank" rel="noopener" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-tiktok" viewBox="0 0 16 16">
+                            <path
+                                d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+                        </svg>
+                    </a>
+                    <!--Facebook-->
+                    <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
         </div>
-
-        <div class="links-institucionais-rodape">
-            <a href="#">Política de Privacidade</a>
-        </div>
-
-        <p class="direitos">
-            © 2026 Abraão J Miguel Advocacia do Agro.
-            Todos os direitos reservados.
-        </p>
-
     </footer>
 
     <script src="script.js"></script>

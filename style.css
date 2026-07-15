@@ -191,26 +191,8 @@ section h2 {
 }
 
 .logo-escritorio {
-    width: 46px;
+    width: 120px;
     height: auto;
-}
-
-.identidade-escritorio .nome-escritorio {
-    font-family: var(--fonte-display);
-    font-size: 1.35rem;
-    font-weight: 600;
-    letter-spacing: .02em;
-    line-height: 1;
-}
-
-.identidade-escritorio .assinatura-escritorio {
-    display: block;
-    font-family: var(--fonte-corpo);
-    font-size: .62rem;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--oliva-claro);
-    margin-top: 3px;
 }
 
 /* Desktop-first: por padrão o menu é uma barra horizontal ao lado do logo.
@@ -300,6 +282,7 @@ section h2 {
 /* Botão hambúrguer — escondido no desktop, aparece só no mobile */
 .botao-hamburguer {
     display: none;
+    margin-left: auto;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
@@ -379,56 +362,43 @@ section h2 {
     border-color: var(--branco);
 }
 
-/* =======================
-   HERO / BANNER PRINCIPAL
-======================= */
+/* ============================================================
+   HERO / BANNER PRINCIPAL (Estilo Padrão - Desktop)
+============================================================= */
 
 .hero-principal {
     position: relative;
-
     color: var(--branco);
     padding: 70px 8% 0;
     overflow: hidden;
-
     background: var(--verde-noite);
-
-
 }
 
-.video-fundo{
+.video-fundo {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
     object-position: center;
-
     z-index: 0;
 }
 
-.overlay-hero{
+.overlay-hero {
     position: absolute;
     inset: 0;
-
-    background: linear-gradient(
-        rgba(5,32,16,.78),
-        rgba(5,32,16,.78)
-    );
-
+    background: linear-gradient(rgba(5, 32, 16, .78), rgba(5, 32, 16, .78));
     z-index: 1;
 }
 
-/* Mobile-first: 1 coluna por padrão, vira 2 colunas no desktop (ver
-   media query no final do arquivo) */
+/* Base Desktop: 2 colunas separando texto e logo */
 .grade-hero {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.2fr 0.8fr; 
     align-items: center;
-    gap: 32px;
+    gap: 50px;
     max-width: 1300px;
-    margin: 4% auto;
+    margin: 5% auto;
     position: relative;
     z-index: 2;
 }
@@ -461,6 +431,56 @@ section h2 {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+}
+
+/* Container da Logo na Direita */
+.logo-hero-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo-hero-grande {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+    animation: flutuarLogo 4s ease-in-out infinite;
+}
+
+@keyframes flutuarLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+
+/* ============================================================
+   RESPONSIVIDADE (Mobile - max-width)
+============================================================= */
+
+/* Ajuste o valor de 991px para 768px se preferir que mude apenas em telas bem pequenas */
+@media (max-width: 991px) {
+    
+    .grade-hero {
+        grid-template-columns: 1fr; /* Passa a ser apenas 1 coluna de conteúdo */
+        gap: 20px;
+        margin-top: 20%;
+    }
+
+    /* Faz a logo e o espaço dela sumirem completamente no mobile */
+    .logo-hero-container {
+        display: none; 
+    }
+
+    .conteudo-hero {
+        padding-bottom: 40px;
+        /* Opcional: caso queira centralizar o texto no mobile, descomente a linha abaixo */
+        /* text-align: center; */
+    }
+
+    /* Opcional: centraliza os botões caso escolha centralizar o texto */
+    /* .botoes-hero { justify-content: center; } */
 }
 
 /* =======================
@@ -538,7 +558,7 @@ section h2 {
 }
 
 /* =======================
-   SEÇÃO 3 — ÁREAS DE ATUAÇÃO (CARROSSEL)
+   SEÇÃO 3 — ÁREAS DE ATUAÇÃO (GRID + ACORDEÃO)
 ======================= */
 
 .secao-atuacao {
@@ -551,36 +571,52 @@ section h2 {
     margin: 0 auto;
 }
 
+/* Desktop: 3 colunas lado a lado. No tablet/mobile (media queries no
+   final do arquivo) vira 2 e depois 1 coluna.
+   Usamos flexbox com colunas independentes (montadas via JS em vez de
+   CSS Grid) para que, ao abrir um card, apenas os cards ABAIXO DELE NA
+   MESMA COLUNA se movam — os das outras colunas ficam parados. */
 .trilha-servicos {
     display: flex;
+    align-items: flex-start;
     gap: 24px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding-bottom: 10px;
-    /* esconde a barra de rolagem nativa; navegação fica nas setas/pontos */
-    scrollbar-width: none;
 }
 
-.trilha-servicos::-webkit-scrollbar {
-    display: none;
+.coluna-servicos {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+    min-width: 0;
 }
 
 .cartao-servico {
-    scroll-snap-align: start;
-    /* mobile-first: 1 cartão por vez; 2 e 3 por página vêm nas media
-       queries no final do arquivo, em sincronia com script.js */
-    flex: 0 0 30%;
     background: var(--branco);
-    padding: 32px;
+    padding: 28px 32px;
     border-radius: 18px;
     box-shadow: 0 8px 30px var(--sombra-card);
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+    transition: box-shadow .25s ease;
 }
 
-.cartao-servico .icone-servico {
+.cartao-servico.aberto {
+    box-shadow: 0 12px 36px rgba(15, 30, 15, .18);
+}
+
+/* Cabeçalho clicável: ícone ao lado do título */
+.cabecalho-servico {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.cabecalho-servico .icone-servico {
     width: 50px;
     height: 50px;
     border-radius: 12px;
@@ -589,32 +625,59 @@ section h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 18px;
+    flex-shrink: 0;
 }
 
-.cartao-servico .icone-servico svg {
+.cabecalho-servico .icone-servico svg {
     width: 24px;
     height: 24px;
 }
 
-.cartao-servico h3 {
+.cabecalho-servico h3 {
+    flex: 1;
     font-family: var(--fonte-display);
     color: var(--verde-noite);
-    margin-bottom: 10px;
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+.icone-expandir-servico {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--creme);
+    color: var(--verde-noite);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+}
+
+.cartao-servico.aberto .icone-expandir-servico {
+    transform: rotate(45deg);
+    background: var(--oliva);
+    color: var(--verde-carvao);
 }
 
 .frase-impacto-card {
     color: var(--oliva-escuro);
     font-style: italic;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-top: 14px;
     font-size: .95rem;
 }
 
-.cartao-servico>p:not(.frase-impacto-card):not(.rotulo-lista) {
-    margin-bottom: 14px;
+/* Conteúdo que só aparece quando o card está aberto */
+.detalhes-servico {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+}
+
+.detalhes-servico>p:not(.rotulo-lista) {
+    margin: 14px 0;
     color: var(--texto-secundario);
     font-size: .95rem;
 }
@@ -624,10 +687,6 @@ section h2 {
     color: var(--texto-principal);
     margin-bottom: 8px;
     font-size: .9rem;
-}
-
-.cartao-servico ul {
-    margin-top: auto;
 }
 
 .cartao-servico ul li {
@@ -646,62 +705,9 @@ section h2 {
     font-weight: bold;
 }
 
+/* Carrossel abandonado — setas e bolinhas não são mais usadas */
 .controles-carrossel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    margin-top: 36px;
-}
-
-.seta-carrossel {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1.5px solid var(--verde-noite);
-    background: transparent;
-    color: var(--verde-noite);
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: .25s;
-    flex-shrink: 0;
-}
-
-.seta-carrossel:hover {
-    background: var(--verde-noite);
-    color: var(--branco);
-}
-
-.seta-carrossel:disabled {
-    opacity: .3;
-    cursor: default;
-}
-
-.seta-carrossel:disabled:hover {
-    background: transparent;
-    color: var(--verde-noite);
-}
-
-.pontos-carrossel {
-    display: flex;
-    gap: 10px;
-}
-
-.pontos-carrossel button {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: none;
-    background: var(--creme-escuro);
-    cursor: pointer;
-    padding: 0;
-    transition: .25s;
-}
-
-.pontos-carrossel button.ponto-ativo {
-    background: var(--oliva);
-    width: 26px;
-    border-radius: 6px;
+    display: none;
 }
 
 /* =======================
@@ -726,9 +732,9 @@ section h2 {
 
 .grade-diferenciais {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 24px;
-    max-width: 1250px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -1001,7 +1007,7 @@ section h2 {
 .coluna-visual-sobre {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 80px;
 }
 
 .imagem-sobre-wrap,
@@ -1280,53 +1286,154 @@ section h2 {
 .rodape-site {
     background: var(--verde-carvao);
     color: var(--branco);
-    text-align: center;
-    padding: 40px 20px 24px;
+    padding: 60px 20px 40px;
+    border-top: 4px solid var(--oliva-claro); 
 }
 
-.rodape-site .nome-escritorio {
-    font-family: var(--fonte-display);
-    font-size: 1.15rem;
-    margin-bottom: 18px;
-}
-
-.redes-sociais-rodape {
+.rodape-container {
+    max-width: 1500px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
 }
 
-.redes-sociais-rodape a {
+/* Colunas Gerais */
+.rodape-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Centralizado no mobile */
+}
+
+/* Títulos das colunas */
+.titulo-coluna {
+    font-family: var(--fonte-display);
+    font-size: 1.1rem;
+    color: var(--oliva-claro);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Coluna 1: Marca --- */
+.logo-rodape {
+    max-width: 180px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.marca-rodape .nome-escritorio {
+    font-family: var(--fonte-display);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.marca-rodape p.direitos {
+    font-size: 0.85rem;
+    color: var(--texto-sobre-verde);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Coluna 2: Contato --- */
+.lista-contato {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lista-contato li {
+    font-size: 0.9rem;
+    color: var(--texto-sobre-verde);
+}
+
+.lista-contato a {
     color: var(--branco);
     text-decoration: none;
-    font-size: .9rem;
-    transition: .3s;
+    transition: color 0.3s ease;
 }
 
-.redes-sociais-rodape a:hover {
+.lista-contato a:hover {
     color: var(--oliva-claro);
+    text-decoration: underline;
 }
 
+.endereco-texto {
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* --- Coluna 3: Links e Redes --- */
 .links-institucionais-rodape {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .links-institucionais-rodape a {
-    color: var(--texto-sobre-verde);
-    text-decoration: underline;
-    font-size: .85rem;
+    color: var(--branco);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
 }
 
 .links-institucionais-rodape a:hover {
     color: var(--oliva-claro);
+    text-decoration: underline;
 }
 
-.rodape-site p.direitos {
-    font-size: .85rem;
-    color: var(--texto-sobre-verde);
+.mt-redes {
+    margin-top: 15px;
 }
 
+.redes-sociais-rodape {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.redes-sociais-rodape a {
+    color: var(--branco);
+    background-color: rgba(255, 255, 255, 0.05); 
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.redes-sociais-rodape a:hover {
+    color: var(--oliva-claro);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px); 
+}
+
+/* =======================
+   RESPONSIVIDADE (Tablets e Desktops)
+======================= */
+@media (min-width: 768px) {
+    .rodape-container {
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .rodape-coluna {
+        align-items: flex-start; /* Alinha o texto à esquerda no PC */
+        flex: 1; /* Faz as colunas terem larguras semelhantes */
+    }
+
+    .redes-sociais-rodape {
+        justify-content: flex-start; /* Alinha os ícones à esquerda */
+    }
+}
 /* =======================
    RESPONSIVIDADE
 ======================= */
@@ -1365,9 +1472,10 @@ section h2 {
         align-items: stretch;
     }
 
-    .cartao-servico {
-        flex: 0 0 calc((100% - 24px) / 2);
+    .coluna-visual-sobre {
+    gap: 20px;
     }
+
 }
 
 @media (max-width:768px) {
@@ -1413,8 +1521,8 @@ section h2 {
         padding: 60px 6%;
     }
 
-    .cartao-servico {
-        flex: 0 0 100%;
+    .trilha-servicos {
+        flex-direction: column;
     }
 
     .bloco-localizacao {
