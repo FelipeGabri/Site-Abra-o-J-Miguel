@@ -6,6 +6,8 @@
    3. Acordeão da seção "Dúvidas Frequentes"
    4. Destaque do link ativo no menu conforme a rolagem
    5. Animação leve de entrada dos blocos (.revelar) ao rolar a página
+   6. Estrutura (stub) para futura integração com API de notícias
+      do agronegócio
 ================================================================= */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -238,5 +240,81 @@ document.addEventListener('DOMContentLoaded', function () {
             observadorRevelar.observe(bloco);
         });
     }
+
+
+/* ------------------------------------------------------------
+   6. NOTÍCIAS DO AGRONEGÓCIO (via NewsAPI.org)
+   ATENÇÃO: o plano gratuito da NewsAPI só aceita requisições
+   feitas a partir de localhost (bloqueio de CORS em produção).
+   Funciona para testes locais; para publicar o site, essa
+   chamada precisa ser feita por um backend seu (ver nota no fim).
+------------------------------------------------------------- */
+
+const NEWS_API_KEY = '511ba24a0b6f49be99b9bd10ad6fab22';
+
+async function carregarNoticiasAgro() {
+    var containerNoticias = document.getElementById('containerNoticiasAgro');
+    if (!containerNoticias) return;
+
+    var url = 'https://newsapi.org/v2/everything'
+        + '?q=agronegócio OR agricultura OR pecuária'
+        + '&language=pt'
+        + '&sortBy=publishedAt'
+        + '&pageSize=6'
+        + '&apiKey=' + NEWS_API_KEY;
+
+    try {
+        var resposta = await fetch(url);
+
+        if (!resposta.ok) {
+            throw new Error('Falha na requisição: ' + resposta.status);
+        }
+
+        var dados = await resposta.json();
+        var artigos = dados.articles || [];
+
+        if (artigos.length === 0) {
+            return; // mantém os cartões de exemplo se não vier nada
+        }
+
+        var IMAGEM_PADRAO = 'https://via.placeholder.com/400x220?text=Agronegócio';
+
+        var htmlGerado = artigos.map(function (artigo) {
+            var fonte = artigo.source && artigo.source.name
+                ? artigo.source.name
+                : 'Fonte desconhecida';
+
+            var data = artigo.publishedAt
+                ? new Date(artigo.publishedAt).toLocaleDateString('pt-BR')
+                : '';
+
+            var titulo = artigo.title || '';
+            var resumo = artigo.description || '';
+            var link = artigo.url || '#';
+            var imagem = artigo.urlToImage || IMAGEM_PADRAO;
+
+            return `
+                <a class="cartao-noticia" href="${link}" target="_blank" rel="noopener noreferrer">
+                    <div class="imagem-noticia">
+                        <img src="${imagem}" alt="${titulo}" onerror="this.src='${IMAGEM_PADRAO}'">
+                    </div>
+                    <div class="conteudo-noticia">
+                        <h3>${titulo}</h3>
+                        <p>${resumo}</p>
+                        <span class="fonte-noticia">${fonte} · ${data}</span>
+                    </div>
+                </a>
+            `;
+        }).join('');
+
+        containerNoticias.innerHTML = htmlGerado;
+
+    } catch (erro) {
+        console.error('Erro ao carregar notícias do agronegócio:', erro);
+        // em caso de erro, os cartões de exemplo do HTML permanecem visíveis
+    }
+}
+
+carregarNoticiasAgro();
 
 });

@@ -1,0 +1,128 @@
+# Backend de Notícias do Agronegócio
+
+Servidor Node.js simples que faz a chamada à NewsAPI por você,
+escondendo a chave da API e evitando o bloqueio de CORS que o
+plano gratuito da NewsAPI aplica em produção.
+
+## Como rodar localmente
+
+1. Instale as dependências:
+   ```
+   npm install
+   ```
+
+2. Copie o arquivo de exemplo de variáveis de ambiente:
+   ```
+   cp .env.example .env
+   ```
+
+3. Abra o `.env` e coloque sua chave real da NewsAPI:
+   ```
+   NEWS_API_KEY=sua_chave_aqui
+   ```
+
+4. Instale o pacote `dotenv` (só é necessário localmente, para
+   ler o arquivo `.env`; em produção a hospedagem gerencia isso
+   por você):
+   ```
+   npm install dotenv
+   ```
+   E adicione no topo do `server.js`:
+   ```js
+   require('dotenv').config();
+   ```
+
+5. Rode o servidor:
+   ```
+   npm start
+   ```
+
+6. Teste no navegador ou com curl:
+   ```
+   http://localhost:3000/api/noticias-agro
+   ```
+
+## Como publicar (produção)
+
+Use um serviço como Render, Railway ou Fly.io (todos têm planos
+gratuitos):
+
+1. Suba este projeto para um repositório no GitHub (o `.gitignore`
+   já impede que `.env` e `node_modules` sejam enviados).
+2. Crie um novo serviço "Web Service" na plataforma escolhida,
+   apontando para o repositório.
+3. Nas configurações do serviço, defina a variável de ambiente
+   `NEWS_API_KEY` com sua chave real da NewsAPI.
+4. A plataforma vai instalar as dependências e rodar
+   `npm start` automaticamente.
+5. Você receberá uma URL pública, por exemplo:
+   `https://seu-app.onrender.com`
+
+## Como usar no front-end
+
+No seu `script.js`, troque a chamada direta à NewsAPI por uma
+chamada ao seu próprio backend:
+
+```javascript
+async function carregarNoticiasAgro() {
+    var containerNoticias = document.getElementById('containerNoticiasAgro');
+    if (!containerNoticias) return;
+
+    // Troque pela URL do seu backend publicado
+    var url = 'https://seu-app.onrender.com/api/noticias-agro';
+
+    try {
+        var resposta = await fetch(url);
+
+        if (!resposta.ok) {
+            throw new Error('Falha na requisição: ' + resposta.status);
+        }
+
+        var dados = await resposta.json();
+        var artigos = dados.artigos || [];
+
+        if (artigos.length === 0) {
+            return; // mantém os cartões de exemplo se não vier nada
+        }
+
+        var IMAGEM_PADRAO = 'https://via.placeholder.com/400x220?text=Agronegócio';
+
+        var htmlGerado = artigos.map(function (artigo) {
+            var data = artigo.data
+                ? new Date(artigo.data).toLocaleDateString('pt-BR')
+                : '';
+
+            return `
+                <a class="cartao-noticia" href="${artigo.link}" target="_blank" rel="noopener noreferrer">
+                    <div class="imagem-noticia">
+                        <img src="${artigo.imagem || IMAGEM_PADRAO}" alt="${artigo.titulo}" onerror="this.src='${IMAGEM_PADRAO}'">
+                    </div>
+                    <div class="conteudo-noticia">
+                        <h3>${artigo.titulo}</h3>
+                        <p>${artigo.resumo}</p>
+                        <span class="fonte-noticia">${artigo.fonte} · ${data}</span>
+                    </div>
+                </a>
+            `;
+        }).join('');
+
+        containerNoticias.innerHTML = htmlGerado;
+
+    } catch (erro) {
+        console.error('Erro ao carregar notícias do agronegócio:', erro);
+    }
+}
+
+carregarNoticiasAgro();
+```
+
+## Observações importantes
+
+- **Regenere sua chave da NewsAPI.** Ela apareceu exposta no
+  código do front-end anteriormente, então qualquer pessoa pode
+  tê-la copiado. Gere uma nova chave no painel da NewsAPI e use
+  apenas essa nova chave aqui no backend.
+- O servidor guarda um cache de 15 minutos em memória para não
+  estourar o limite de requisições do plano gratuito da NewsAPI.
+  Se o servidor reiniciar, o cache é perdido (isso é esperado
+  para um projeto simples).
