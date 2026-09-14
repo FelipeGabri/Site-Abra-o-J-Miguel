@@ -1025,42 +1025,56 @@ section h2 {
 
 /* =======================
    SEÇÃO 8 — NOTÍCIAS DO AGRONEGÓCIO
-   Cartões de exemplo — conteúdo real vem de API (ver script.js)
+   Carrossel de notícia em destaque — conteúdo real vem de API
 ======================= */
 
-.secao-noticias {
-    background: var(--branco);
+.secao-atuacao {
+    background: var(--creme);
+    padding: 60px 20px;
 }
 
-.grade-noticias {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+.carrossel-noticias {
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.cartao-noticia {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 12px;
+.carrossel-viewport {
     overflow: hidden;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 16px;
+    width: 100%;
 }
 
-.cartao-noticia:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+.carrossel-trilha {
+    display: flex;
+    cursor: grab;
+    user-select: none;
+}
+
+.carrossel-trilha.arrastando {
+    cursor: grabbing;
+}
+
+.cartao-noticia {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    min-height: 180px;
+    height: 180px;
 }
 
 .imagem-noticia {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     overflow: hidden;
+    background: #f2f1ec;
 }
 
 .imagem-noticia img {
@@ -1068,31 +1082,138 @@ section h2 {
     height: 100%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
 }
 
 .conteudo-noticia {
-    padding: 16px;
+    padding: 18px 28px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .conteudo-noticia h3 {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
+    font-weight: 700;
     line-height: 1.3;
-    margin: 0;
+    margin: 0 0 8px;
+    color: #1c1c1a;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .conteudo-noticia p {
-    font-size: 0.9rem;
-    color: #555;
-    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #6b6b64;
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .fonte-noticia {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: auto;
+    font-size: 0.75rem;
+    color: #8a8a82;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Setas de navegação */
+.seta-carrossel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.92);
+    color: #1c1c1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+}
+
+.seta-carrossel:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.06);
+}
+
+.seta-anterior {
+    left: -20px;
+}
+
+.seta-proxima {
+    right: -20px;
+}
+
+/* Indicadores (bolinhas) */
+.indicadores-carrossel {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.indicador-bolinha {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.18);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, width 0.25s ease;
+}
+
+.indicador-bolinha.ativo {
+    background: var(--verde-oliva, #6b7a3f);
+    width: 22px;
+    border-radius: 4px;
+}
+
+/* Responsivo — mobile */
+@media (max-width: 760px) {
+    .cartao-noticia {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: auto;
+    }
+
+    .imagem-noticia {
+        aspect-ratio: 16 / 9;
+        height: auto;
+    }
+
+    .conteudo-noticia {
+        padding: 16px 18px;
+    }
+
+    .conteudo-noticia h3 {
+        font-size: 1rem;
+    }
+
+    .seta-carrossel {
+        width: 36px;
+        height: 36px;
+    }
+
+    .seta-anterior {
+        left: 8px;
+    }
+
+    .seta-proxima {
+        right: 8px;
+    }
 }
 
 /* =======================

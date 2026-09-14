@@ -106,6 +106,60 @@
 
     </section>
 
+    <!-- ============================================================
+        SEÇÃO 8 — NOTÍCIAS DO AGRONEGÓCIO
+        Espaço reservado para integração futura com API de notícias.
+        TODO (dev): substituir os cartões de exemplo abaixo por
+        conteúdo carregado dinamicamente via JavaScript (fetch) a
+        partir da API escolhida. Ver comentário correspondente em
+        script.js — função carregarNoticiasAgro().
+    ============================================================= -->
+    <section class="secao-atuacao" id="noticias-agro">
+
+        <div class="cabecalho-secao revelar">
+            <span class="etiqueta-secao">Fique por dentro</span>
+            <h2>Notícias do <span class="destaque-oliva">agronegócio</span></h2>
+            <p class="subtitulo-secao">
+                Atualizações do setor que podem impactar direta ou
+                indiretamente a vida do produtor rural.
+            </p>
+        </div>
+
+        <div class="carrossel-noticias revelar" id="carrosselNoticiasAgro">
+
+            <div class="carrossel-viewport" id="viewportNoticiasAgro">
+                <div class="carrossel-trilha" id="trilhaNoticiasAgro">
+                    <!-- Cartão de exemplo — substituído pela API -->
+                    <a class="cartao-noticia" href="#" target="_blank" rel="noopener noreferrer">
+                        <div class="imagem-noticia">
+                            <img src="https://placehold.co/1200x500?text=Agronegócio" alt="Imagem da notícia">
+                        </div>
+                        <div class="conteudo-noticia">
+                            <h3>Título da notícia sobre o agronegócio aparecerá aqui</h3>
+                            <p>Um breve resumo automático da notícia será exibido nesta área assim que a API for conectada.</p>
+                            <span class="fonte-noticia">Exemplo de fonte · Hoje</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <button class="seta-carrossel seta-anterior" id="setaAnteriorNoticias" aria-label="Notícia anterior">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <button class="seta-carrossel seta-proxima" id="setaProximaNoticias" aria-label="Próxima notícia">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="indicadores-carrossel" id="indicadoresNoticiasAgro"></div>
+
+        </div>
+
+    </section>
 
     <!-- ============================================================
          SEÇÃO 2 — PROPOSTA DE VALOR
@@ -1027,65 +1081,6 @@
             </article>
 
         </div>
-
-    </section>
-
-
-    <!-- ============================================================
-         SEÇÃO 8 — NOTÍCIAS DO AGRONEGÓCIO
-         Espaço reservado para integração futura com API de notícias.
-         TODO (dev): substituir os cartões de exemplo abaixo por
-         conteúdo carregado dinamicamente via JavaScript (fetch) a
-         partir da API escolhida. Ver comentário correspondente em
-         script.js — função carregarNoticiasAgro().
-    ============================================================= -->
-    <section class="secao-noticias" id="noticias-agro">
-
-        <div class="cabecalho-secao revelar">
-            <span class="etiqueta-secao">Fique por dentro</span>
-            <h2>Notícias do <span class="destaque-oliva">agronegócio</span></h2>
-            <p class="subtitulo-secao">
-                Atualizações do setor que podem impactar direta ou
-                indiretamente a vida do produtor rural.
-            </p>
-        </div>
-
-    <div class="grade-noticias revelar" id="containerNoticiasAgro">
-        <!-- Cartões de exemplo — serão substituídos pela API -->
-        <a class="cartao-noticia" href="#" target="_blank" rel="noopener noreferrer">
-            <div class="imagem-noticia">
-                <img src="https://via.placeholder.com/400x220?text=Agronegócio" alt="Imagem da notícia">
-            </div>
-            <div class="conteudo-noticia">
-                <h3>Título da notícia sobre o agronegócio aparecerá aqui</h3>
-                <p>Um breve resumo automático da notícia será exibido nesta área assim que a API for conectada.</p>
-                <span class="fonte-noticia">Exemplo de fonte · Hoje</span>
-            </div>
-        </a>
-
-        <a class="cartao-noticia" href="#" target="_blank" rel="noopener noreferrer">
-            <div class="imagem-noticia">
-                <img src="https://via.placeholder.com/400x220?text=Agronegócio" alt="Imagem da notícia">
-            </div>
-            <div class="conteudo-noticia">
-                <h3>Título da notícia sobre o agronegócio aparecerá aqui</h3>
-                <p>Um breve resumo automático da notícia será exibido nesta área assim que a API for conectada.</p>
-                <span class="fonte-noticia">Exemplo de fonte · Hoje</span>
-            </div>
-        </a>
-
-        <a class="cartao-noticia" href="#" target="_blank" rel="noopener noreferrer">
-            <div class="imagem-noticia">
-                <img src="https://via.placeholder.com/400x220?text=Agronegócio" alt="Imagem da notícia">
-            </div>
-            <div class="conteudo-noticia">
-                <h3>Título da notícia sobre o agronegócio aparecerá aqui</h3>
-                <p>Um breve resumo automático da notícia será exibido nesta área assim que a API for conectada.</p>
-                <span class="fonte-noticia">Exemplo de fonte · Hoje</span>
-            </div>
-        </a>
-
-    </div>
 
     </section>
 
