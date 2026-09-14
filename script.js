@@ -250,18 +250,11 @@ document.addEventListener('DOMContentLoaded', function () {
    chamada precisa ser feita por um backend seu (ver nota no fim).
 ------------------------------------------------------------- */
 
-const NEWS_API_KEY = '511ba24a0b6f49be99b9bd10ad6fab22';
-
 async function carregarNoticiasAgro() {
     var containerNoticias = document.getElementById('containerNoticiasAgro');
     if (!containerNoticias) return;
 
-    var url = 'https://newsapi.org/v2/everything'
-        + '?q=agronegócio OR agricultura OR pecuária'
-        + '&language=pt'
-        + '&sortBy=publishedAt'
-        + '&pageSize=6'
-        + '&apiKey=' + NEWS_API_KEY;
+    var url = 'https://siteabraao.onrender.com/api/noticias-agro';
 
     try {
         var resposta = await fetch(url);
@@ -271,7 +264,7 @@ async function carregarNoticiasAgro() {
         }
 
         var dados = await resposta.json();
-        var artigos = dados.articles || [];
+        var artigos = dados.artigos || [];
 
         if (artigos.length === 0) {
             return; // mantém os cartões de exemplo se não vier nada
@@ -280,28 +273,19 @@ async function carregarNoticiasAgro() {
         var IMAGEM_PADRAO = 'https://via.placeholder.com/400x220?text=Agronegócio';
 
         var htmlGerado = artigos.map(function (artigo) {
-            var fonte = artigo.source && artigo.source.name
-                ? artigo.source.name
-                : 'Fonte desconhecida';
-
-            var data = artigo.publishedAt
-                ? new Date(artigo.publishedAt).toLocaleDateString('pt-BR')
+            var data = artigo.data
+                ? new Date(artigo.data).toLocaleDateString('pt-BR')
                 : '';
 
-            var titulo = artigo.title || '';
-            var resumo = artigo.description || '';
-            var link = artigo.url || '#';
-            var imagem = artigo.urlToImage || IMAGEM_PADRAO;
-
             return `
-                <a class="cartao-noticia" href="${link}" target="_blank" rel="noopener noreferrer">
+                <a class="cartao-noticia" href="${artigo.link}" target="_blank" rel="noopener noreferrer">
                     <div class="imagem-noticia">
-                        <img src="${imagem}" alt="${titulo}" onerror="this.src='${IMAGEM_PADRAO}'">
+                        <img src="${artigo.imagem || IMAGEM_PADRAO}" alt="${artigo.titulo}" onerror="this.src='${IMAGEM_PADRAO}'">
                     </div>
                     <div class="conteudo-noticia">
-                        <h3>${titulo}</h3>
-                        <p>${resumo}</p>
-                        <span class="fonte-noticia">${fonte} · ${data}</span>
+                        <h3>${artigo.titulo}</h3>
+                        <p>${artigo.resumo}</p>
+                        <span class="fonte-noticia">${artigo.fonte} · ${data}</span>
                     </div>
                 </a>
             `;
@@ -311,7 +295,6 @@ async function carregarNoticiasAgro() {
 
     } catch (erro) {
         console.error('Erro ao carregar notícias do agronegócio:', erro);
-        // em caso de erro, os cartões de exemplo do HTML permanecem visíveis
     }
 }
 
