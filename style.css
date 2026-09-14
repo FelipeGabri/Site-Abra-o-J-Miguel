@@ -161,10 +161,109 @@ section h2 {
    CABEÇALHO / NAVEGAÇÃO
 ======================= */
 
+/* =======================
+   TIRA DE COTAÇÕES DO AGRONEGÓCIO
+   Faixa full-width com rolagem contínua (marquee). Fica sempre no
+   topo da página, acima do cabeçalho — por isso o cabeçalho (que é
+   position:absolute) é empurrado para baixo via a variável
+   --altura-tira-cotacoes abaixo.
+======================= */
+
+:root {
+    --altura-tira-cotacoes: 50px;
+}
+
+.tira-cotacoes {
+    width: 100%;
+    height: var(--altura-tira-cotacoes);
+    display: flex;
+    align-items: center;
+    background: var(--verde-carvao);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    overflow: hidden;
+    position: relative;
+    z-index: 1001;
+}
+
+.trilha-cotacoes {
+    display: inline-flex;
+    align-items: center;
+    gap: 36px;
+    white-space: nowrap;
+    padding: 0 24px;
+    width: max-content;
+    animation: rolarCotacoes 26s linear infinite;
+}
+
+.tira-cotacoes:hover .trilha-cotacoes {
+    animation-play-state: paused;
+}
+
+@keyframes rolarCotacoes {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.item-cotacao {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.nome-cotacao {
+    font-family: var(--fonte-corpo);
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--oliva-claro);
+}
+
+.valor-cotacao {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--branco);
+    font-variant-numeric: tabular-nums;
+}
+
+.variacao-cotacao {
+    font-size: .84rem;
+    font-weight: 700;
+}
+
+.variacao-alta {
+    color: #9fd88c;
+}
+
+.variacao-baixa {
+    color: #e59a8f;
+}
+
+@media (max-width: 768px) {
+    .trilha-cotacoes {
+        gap: 24px;
+        padding: 0 16px;
+    }
+
+    .nome-cotacao {
+        font-size: .64rem;
+    }
+
+    .valor-cotacao,
+    .variacao-cotacao {
+        font-size: .72rem;
+    }
+}
+
 .cabecalho-site {
     color: var(--branco);
     position: absolute;
-    top: 0;
+    top: var(--altura-tira-cotacoes);
     left: 0;
     width: 100%;
 
@@ -1023,6 +1122,59 @@ section h2 {
     color: var(--verde-noite);
 }
 
+/* Cartão de e-book com capa + botão de download */
+.cartao-conteudo.cartao-ebook {
+    padding: 0;
+    overflow: hidden;
+}
+
+.capa-ebook {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: var(--creme-escuro);
+    overflow: hidden;
+}
+
+.capa-ebook img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.corpo-cartao-conteudo {
+    padding: 24px 26px 28px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.cartao-ebook .etiqueta-conteudo {
+    margin-bottom: 12px;
+}
+
+.botao-baixar-ebook {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--oliva);
+    color: var(--verde-carvao);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .9rem;
+    padding: 13px 20px;
+    border-radius: 999px;
+    transition: .25s;
+    margin-top: auto;
+}
+
+.botao-baixar-ebook:hover {
+    background: var(--oliva-escuro);
+    color: var(--branco);
+    transform: translateY(-2px);
+}
+
 /* =======================
    SEÇÃO 8 — NOTÍCIAS DO AGRONEGÓCIO
    Carrossel de notícia em destaque — conteúdo real vem de API
@@ -1179,6 +1331,276 @@ section h2 {
     background: var(--verde-oliva, #6b7a3f);
     width: 22px;
     border-radius: 4px;
+}
+
+/* Link "Ver mais notícias" abaixo do carrossel */
+.acao-ver-mais-noticias {
+    text-align: center;
+    margin-top: 36px;
+}
+
+.link-ver-mais {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--oliva-escuro);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .95rem;
+    padding: 12px 26px;
+    border: 1.5px solid var(--oliva);
+    border-radius: 999px;
+    transition: .25s;
+}
+
+.link-ver-mais:hover {
+    background: var(--oliva);
+    color: var(--verde-carvao);
+}
+
+/* =======================
+   PÁGINA DE NOTÍCIAS COMPLETA (noticias.html)
+======================= */
+
+.banner-noticias {
+    background: var(--verde-noite);
+    color: var(--branco);
+    padding: 70px 8% 50px;
+    text-align: center;
+}
+
+.banner-noticias .etiqueta-secao {
+    justify-content: center;
+    color: var(--oliva-claro);
+}
+
+.banner-noticias h1 {
+    font-family: var(--fonte-display);
+    font-weight: 600;
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+}
+
+.banner-noticias p {
+    color: var(--texto-sobre-verde);
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.secao-noticias-completa {
+    background: var(--creme);
+    padding: 60px 8% 100px;
+}
+
+.filtros-categoria-noticias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto 46px;
+}
+
+.botao-filtro-categoria {
+    background: var(--branco);
+    color: var(--texto-secundario);
+    border: 1.5px solid rgba(15, 30, 15, .12);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .22s;
+}
+
+.botao-filtro-categoria:hover {
+    border-color: var(--oliva);
+    color: var(--oliva-escuro);
+}
+
+.botao-filtro-categoria.ativo {
+    background: var(--oliva);
+    border-color: var(--oliva);
+    color: var(--verde-carvao);
+}
+
+.grade-noticias-completa {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Notícia em destaque — card grande no topo da listagem */
+.noticia-destaque {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: stretch;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    background: var(--branco);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 12px 40px var(--sombra-card);
+    transition: .3s;
+}
+
+.noticia-destaque:hover {
+    transform: translateY(-5px);
+}
+
+.noticia-destaque .imagem-destaque {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    overflow: hidden;
+    background: #f2f1ec;
+}
+
+.noticia-destaque .imagem-destaque img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.noticia-destaque .conteudo-destaque {
+    padding: 40px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.noticia-destaque .categoria-noticia {
+    align-self: flex-start;
+}
+
+.noticia-destaque h2 {
+    font-family: var(--fonte-display);
+    font-size: 1.7rem;
+    line-height: 1.25;
+    color: var(--verde-noite);
+    margin: 12px 0 14px;
+}
+
+.noticia-destaque p {
+    color: var(--texto-secundario);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.noticia-destaque .fonte-noticia {
+    font-size: .82rem;
+    color: var(--texto-secundario);
+    border-top: 1px solid rgba(0, 0, 0, .08);
+    padding-top: 12px;
+    align-self: flex-start;
+}
+
+@media (max-width: 760px) {
+    .noticia-destaque {
+        grid-template-columns: 1fr;
+    }
+
+    .noticia-destaque .imagem-destaque {
+        aspect-ratio: 16 / 9;
+        min-height: 0;
+    }
+
+    .noticia-destaque .conteudo-destaque {
+        padding: 26px 24px;
+    }
+
+    .noticia-destaque h2 {
+        font-size: 1.35rem;
+    }
+}
+
+.cartao-noticia-grade {
+    display: flex;
+    flex-direction: column;
+    background: var(--branco);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 8px 30px var(--sombra-card);
+    transition: .3s;
+}
+
+.cartao-noticia-grade:hover {
+    transform: translateY(-6px);
+}
+
+.cartao-noticia-grade .imagem-noticia {
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+.cartao-noticia-grade .conteudo-noticia {
+    padding: 20px 22px;
+    flex-grow: 1;
+}
+
+.cartao-noticia-grade .categoria-noticia {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--oliva-escuro);
+    background: rgba(147, 178, 63, .15);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+
+.mensagem-noticias-completa {
+    text-align: center;
+    color: var(--texto-secundario);
+    padding: 40px 0;
+    grid-column: 1 / -1;
+}
+
+.acao-carregar-mais {
+    text-align: center;
+    margin-top: 44px;
+}
+
+.botao-carregar-mais {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--branco);
+    color: var(--oliva-escuro);
+    border: 1.5px solid var(--oliva);
+    padding: 13px 32px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .92rem;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.botao-carregar-mais:hover {
+    background: var(--oliva);
+    color: var(--verde-carvao);
+}
+
+.botao-carregar-mais:disabled {
+    opacity: .55;
+    cursor: default;
+    background: var(--branco);
+    color: var(--oliva-escuro);
 }
 
 /* Responsivo — mobile */
