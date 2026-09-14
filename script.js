@@ -6,8 +6,10 @@
    3. Acordeão da seção "Dúvidas Frequentes"
    4. Destaque do link ativo no menu conforme a rolagem
    5. Animação leve de entrada dos blocos (.revelar) ao rolar a página
-   6. Estrutura (stub) para futura integração com API de notícias
-      do agronegócio
+   6. Notícias do agronegócio (carrossel da home, via API própria)
+   7. Tira de cotações do agronegócio (estrutura/stub para API futura)
+   8. Página completa de notícias (noticias.html) com filtro por
+      subcategoria — só roda se os elementos existirem na página
 ================================================================= */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -502,5 +504,274 @@ function inicializarCarrossel() {
 }
 
 carregarNoticiasAgro();
+
+
+    /* ------------------------------------------------------------
+       7. TIRA DE COTAÇÕES DO AGRONEGÓCIO (via API — a implementar)
+       A tira já existe no HTML (#trilhaCotacoes) com 5 itens de
+       exemplo (placeholder: Soja, Milho, Boi Gordo, Café, Dólar).
+       Quando a API de cotações for definida (ex.: CEPEA/Esalq, B3
+       ou outro provedor de commodities), implemente
+       carregarCotacoesAgro() para:
+         1. Buscar os dados (fetch) na API escolhida;
+         2. Montar o HTML de cada item usando a mesma estrutura dos
+            itens de exemplo já presentes no HTML:
+              <span class="item-cotacao">
+                  <span class="nome-cotacao">Nome do produto</span>
+                  <span class="valor-cotacao">R$ 0,00</span>
+                  <span class="variacao-cotacao variacao-alta">▲ 0,0%</span>
+              </span>
+            (troque "variacao-alta" por "variacao-baixa" quando a
+            variação do dia for negativa);
+         3. Substituir o conteúdo de #trilhaCotacoes pelo HTML
+            montado (ex.: trilhaCotacoes.innerHTML = htmlGerado) e
+            chamar inicializarTiraCotacoes() em seguida, para que o
+            efeito de rolagem contínua seja recriado com os dados
+            novos.
+       Por enquanto a função só existe como estrutura (stub) e não
+       faz nenhuma chamada de rede — os itens de exemplo do HTML
+       permanecem visíveis e a tira já rola normalmente.
+    ------------------------------------------------------------- */
+
+    function carregarCotacoesAgro() {
+        var trilhaCotacoes = document.getElementById('trilhaCotacoes');
+        if (!trilhaCotacoes) return;
+
+        // TODO: substituir pelo fetch() real da API de cotações escolhida.
+        // Exemplo de estrutura esperada da resposta (ajustar conforme a API):
+        // [{ nome: 'Soja', valor: 'R$ 138,50 / sc', variacao: 0.8 }, ...]
+    }
+
+    // Duplica os itens da tira para criar o efeito de rolagem contínua
+    // (marquee), sem "pulo" perceptível no fim da trilha. Pode ser
+    // chamada de novo com segurança sempre que o conteúdo da tira mudar
+    // (ex.: depois de carregarCotacoesAgro() trocar os itens pela API).
+    function inicializarTiraCotacoes() {
+        var trilhaCotacoes = document.getElementById('trilhaCotacoes');
+        if (!trilhaCotacoes) return;
+
+        // Remove clones de uma inicialização anterior antes de duplicar de novo
+        trilhaCotacoes.querySelectorAll('[data-clone-cotacao="true"]').forEach(function (clone) {
+            clone.remove();
+        });
+
+        var itensOriginais = Array.prototype.slice.call(trilhaCotacoes.children);
+        itensOriginais.forEach(function (item) {
+            var clone = item.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            clone.setAttribute('data-clone-cotacao', 'true');
+            trilhaCotacoes.appendChild(clone);
+        });
+    }
+
+    // Descomentar quando a API de cotações estiver pronta:
+    // carregarCotacoesAgro();
+    inicializarTiraCotacoes();
+
+
+    /* ------------------------------------------------------------
+       8. PÁGINA COMPLETA DE NOTÍCIAS (noticias.html)
+       Só executa se #gradeNoticiasCompleta existir na página atual
+       (ou seja, não roda na home). Reaproveita o mesmo backend usado
+       pelo carrossel da home (server.js), mas:
+         - a 1ª notícia vira um card grande em destaque
+           (#noticiaDestaque), as demais vão na grade;
+         - o botão "Carregar mais notícias" pede a próxima página
+           (?pagina=N) e acrescenta mais itens à grade, sem duplicar
+           o destaque;
+         - trocar a subcategoria (Todas / Agro Direito / Agro Gestão)
+           reinicia a página em 1 e monta tudo de novo.
+    ------------------------------------------------------------- */
+
+    var gradeNoticiasCompleta = document.getElementById('gradeNoticiasCompleta');
+
+    if (gradeNoticiasCompleta) {
+
+        var URL_BASE_API_NOTICIAS = 'https://siteabraao.onrender.com/api/noticias-agro';
+        var IMAGEM_PADRAO_NOTICIA = 'https://placehold.co/1200x500?text=Agronegócio';
+        var QUANTIDADE_POR_PAGINA = 12; // itens da grade por página (fora o destaque)
+
+        var botoesFiltroCategoria = document.querySelectorAll('.botao-filtro-categoria');
+        var elementoDestaque = document.getElementById('noticiaDestaque');
+        var acaoCarregarMais = document.getElementById('acaoCarregarMais');
+        var botaoCarregarMais = document.getElementById('botaoCarregarMais');
+
+        var categoriaAtual = 'geral';
+        var paginaAtual = 1;
+        var carregandoMais = false;
+
+        // Rótulo amigável exibido no card, por categoria
+        var ROTULOS_CATEGORIA = {
+            geral: 'Agronegócio',
+            direito: 'Agro Direito',
+            gestao: 'Agro Gestão'
+        };
+
+        function criarCartaoNoticia(artigo, rotulo) {
+            var data = artigo.data
+                ? new Date(artigo.data).toLocaleDateString('pt-BR')
+                : '';
+
+            return `
+                <a class="cartao-noticia-grade" href="${artigo.link}" target="_blank" rel="noopener noreferrer">
+                    <div class="imagem-noticia">
+                        <img src="${artigo.imagem || IMAGEM_PADRAO_NOTICIA}" alt="${artigo.titulo}" onerror="this.src='${IMAGEM_PADRAO_NOTICIA}'">
+                    </div>
+                    <div class="conteudo-noticia">
+                        <span class="categoria-noticia">${rotulo}</span>
+                        <h3>${artigo.titulo}</h3>
+                        <p>${artigo.resumo}</p>
+                        <span class="fonte-noticia">${artigo.fonte} · ${data}</span>
+                    </div>
+                </a>
+            `;
+        }
+
+        function preencherDestaque(artigo, rotulo) {
+            if (!elementoDestaque || !artigo) return;
+
+            var data = artigo.data
+                ? new Date(artigo.data).toLocaleDateString('pt-BR')
+                : '';
+
+            elementoDestaque.href = artigo.link;
+            elementoDestaque.querySelector('img').src = artigo.imagem || IMAGEM_PADRAO_NOTICIA;
+            elementoDestaque.querySelector('img').alt = artigo.titulo;
+            elementoDestaque.querySelector('img').onerror = function () {
+                this.src = IMAGEM_PADRAO_NOTICIA;
+            };
+            elementoDestaque.querySelector('.categoria-noticia').textContent = rotulo;
+            elementoDestaque.querySelector('h2').textContent = artigo.titulo;
+            elementoDestaque.querySelector('p').textContent = artigo.resumo;
+            elementoDestaque.querySelector('.fonte-noticia').textContent = artigo.fonte + ' · ' + data;
+            elementoDestaque.style.display = '';
+        }
+
+        async function buscarNoticias(categoria, pagina, limite) {
+            var url = URL_BASE_API_NOTICIAS
+                + '?categoria=' + encodeURIComponent(categoria)
+                + '&limite=' + limite
+                + '&pagina=' + pagina;
+
+            var resposta = await fetch(url);
+
+            if (!resposta.ok) {
+                throw new Error('Falha na requisição: ' + resposta.status);
+            }
+
+            var dados = await resposta.json();
+            return dados.artigos || [];
+        }
+
+        // Carrega do zero: reseta a grade, busca a página 1 (destaque +
+        // primeiros itens da grade) para a categoria escolhida
+        async function carregarNoticiasCompletas(categoria) {
+            categoriaAtual = categoria;
+            paginaAtual = 1;
+
+            if (elementoDestaque) elementoDestaque.style.display = 'none';
+            if (acaoCarregarMais) acaoCarregarMais.style.display = 'none';
+            gradeNoticiasCompleta.innerHTML =
+                '<p class="mensagem-noticias-completa">Carregando notícias…</p>';
+
+            try {
+                // Pede destaque + 1ª página da grade em uma única chamada
+                var artigos = await buscarNoticias(categoria, 1, QUANTIDADE_POR_PAGINA + 1);
+                var rotulo = ROTULOS_CATEGORIA[categoria] || 'Agronegócio';
+
+                if (artigos.length === 0) {
+                    gradeNoticiasCompleta.innerHTML =
+                        '<p class="mensagem-noticias-completa">Nenhuma notícia encontrada no momento. Tente novamente mais tarde.</p>';
+                    return;
+                }
+
+                var destaque = artigos[0];
+                var restante = artigos.slice(1);
+
+                preencherDestaque(destaque, rotulo);
+
+                gradeNoticiasCompleta.innerHTML = restante
+                    .map(function (artigo) { return criarCartaoNoticia(artigo, rotulo); })
+                    .join('');
+
+                // Só mostra "carregar mais" se a página trouxe o total
+                // pedido (sinal de que provavelmente existe mais notícia)
+                if (acaoCarregarMais) {
+                    acaoCarregarMais.style.display =
+                        artigos.length >= (QUANTIDADE_POR_PAGINA + 1) ? '' : 'none';
+                }
+
+            } catch (erro) {
+                console.error('Erro ao carregar notícias do agronegócio:', erro);
+                if (elementoDestaque) elementoDestaque.style.display = 'none';
+                gradeNoticiasCompleta.innerHTML =
+                    '<p class="mensagem-noticias-completa">Não foi possível carregar as notícias agora. Tente novamente mais tarde.</p>';
+            }
+        }
+
+        // Busca a próxima página e ACRESCENTA à grade (sem mexer no destaque)
+        async function carregarMaisNoticias() {
+            if (carregandoMais) return;
+            carregandoMais = true;
+
+            if (botaoCarregarMais) {
+                botaoCarregarMais.disabled = true;
+                botaoCarregarMais.textContent = 'Carregando…';
+            }
+
+            try {
+                var proximaPagina = paginaAtual + 1;
+                var artigos = await buscarNoticias(categoriaAtual, proximaPagina, QUANTIDADE_POR_PAGINA);
+                var rotulo = ROTULOS_CATEGORIA[categoriaAtual] || 'Agronegócio';
+
+                if (artigos.length === 0) {
+                    if (acaoCarregarMais) acaoCarregarMais.style.display = 'none';
+                    return;
+                }
+
+                paginaAtual = proximaPagina;
+
+                var htmlNovo = artigos
+                    .map(function (artigo) { return criarCartaoNoticia(artigo, rotulo); })
+                    .join('');
+
+                gradeNoticiasCompleta.insertAdjacentHTML('beforeend', htmlNovo);
+
+                if (acaoCarregarMais) {
+                    acaoCarregarMais.style.display =
+                        artigos.length >= QUANTIDADE_POR_PAGINA ? '' : 'none';
+                }
+
+            } catch (erro) {
+                console.error('Erro ao carregar mais notícias:', erro);
+            } finally {
+                carregandoMais = false;
+                if (botaoCarregarMais) {
+                    botaoCarregarMais.disabled = false;
+                    botaoCarregarMais.textContent = 'Carregar mais notícias';
+                }
+            }
+        }
+
+        botoesFiltroCategoria.forEach(function (botao) {
+            botao.addEventListener('click', function () {
+                botoesFiltroCategoria.forEach(function (b) {
+                    b.classList.remove('ativo');
+                });
+                botao.classList.add('ativo');
+                carregarNoticiasCompletas(botao.dataset.categoria);
+            });
+        });
+
+        if (botaoCarregarMais) {
+            botaoCarregarMais.addEventListener('click', carregarMaisNoticias);
+        }
+
+        // Carrega a categoria inicial (a que já vier marcada como "ativo" no HTML)
+        var botaoInicial = document.querySelector('.botao-filtro-categoria.ativo') || botoesFiltroCategoria[0];
+        if (botaoInicial) {
+            carregarNoticiasCompletas(botaoInicial.dataset.categoria);
+        }
+    }
 
 });

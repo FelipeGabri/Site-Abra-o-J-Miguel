@@ -28,6 +28,43 @@
 <body>
 
     <!-- ============================================================
+         TIRA DE COTAÇÕES DO AGRONEGÓCIO (via API — a implementar)
+         Faixa full-width com rolagem contínua (marquee). Os itens
+         abaixo são placeholders de layout — ver carregarCotacoesAgro()
+         em script.js para o passo a passo de como conectar a API.
+    ============================================================= -->
+    <div class="tira-cotacoes" id="tiraCotacoes" role="region" aria-label="Cotações do agronegócio">
+        <div class="trilha-cotacoes" id="trilhaCotacoes">
+            <!-- Itens de exemplo — substituídos pela API -->
+            <span class="item-cotacao">
+                <span class="nome-cotacao">Soja</span>
+                <span class="valor-cotacao">R$ 138,50 / sc</span>
+                <span class="variacao-cotacao variacao-alta">▲ 0,8%</span>
+            </span>
+            <span class="item-cotacao">
+                <span class="nome-cotacao">Milho</span>
+                <span class="valor-cotacao">R$ 62,30 / sc</span>
+                <span class="variacao-cotacao variacao-baixa">▼ 0,3%</span>
+            </span>
+            <span class="item-cotacao">
+                <span class="nome-cotacao">Boi Gordo</span>
+                <span class="valor-cotacao">R$ 298,00 / @</span>
+                <span class="variacao-cotacao variacao-alta">▲ 1,2%</span>
+            </span>
+            <span class="item-cotacao">
+                <span class="nome-cotacao">Café Arábica</span>
+                <span class="valor-cotacao">R$ 1.980,00 / sc</span>
+                <span class="variacao-cotacao variacao-baixa">▼ 0,5%</span>
+            </span>
+            <span class="item-cotacao">
+                <span class="nome-cotacao">Dólar</span>
+                <span class="valor-cotacao">R$ 5,42</span>
+                <span class="variacao-cotacao variacao-alta">▲ 0,2%</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- ============================================================
          CABEÇALHO E MENU DE NAVEGAÇÃO
     ============================================================= -->
     <header class="cabecalho-site">
@@ -48,6 +85,7 @@
                 <li><a href="#inicio" class="link-ativo">Início</a></li>
                 <li><a href="#servicos">Áreas de Atuação</a></li>
                 <li><a href="#equipe">Equipe</a></li>
+                <li><a href="noticias.html">Notícias</a></li>
                 <li><a href="#conteudos">Conteúdos</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#duvidas">Dúvidas</a></li>
@@ -157,6 +195,16 @@
 
             <div class="indicadores-carrossel" id="indicadoresNoticiasAgro"></div>
 
+        </div>
+
+        <div class="acao-ver-mais-noticias revelar">
+            <a href="noticias.html" class="link-ver-mais">
+                Ver mais notícias
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </div>
 
     </section>
@@ -1043,15 +1091,18 @@
          Conteúdos educativos para geração de autoridade e captação.
 
          Por enquanto só existe 1 e-book real. Para adicionar um novo
-         artigo ou e-book no futuro, copie o bloco <article
-         class="cartao-conteudo"> abaixo, cole logo depois dele dentro
-         de .grade-conteudos, e ajuste:
-           - a etiqueta: "etiqueta-artigo" (Artigo) ou "etiqueta-ebook"
-             (E-book);
+         e-book no futuro, copie o bloco <article class="cartao-conteudo
+         cartao-ebook"> abaixo, cole logo depois dele dentro de
+         .grade-conteudos, e ajuste:
+           - a imagem em .capa-ebook: coloque o arquivo de capa (jpg/png,
+             proporção retrato, ex. 600x800px) dentro da pasta
+             /eBooks/capas/ e aponte o src para ele;
            - o título (<h3>) e o resumo (<p>);
-           - o href do link: para artigo, a URL da página/post; para
-             e-book, o caminho do PDF dentro da pasta /ebooks;
-           - o texto do link: "Ler artigo →" ou "Baixar e-book (PDF) →".
+           - o href do botão: o caminho do PDF dentro da pasta /eBooks;
+           - o texto do botão: "Baixar e-book (PDF)".
+         Para um ARTIGO (sem capa/PDF), use <article class="cartao-conteudo">
+         sem a div .capa-ebook, etiqueta "etiqueta-artigo" e um link
+         "link-conteudo" comum em vez do botão de download.
     ============================================================= -->
     <section class="secao-conteudos" id="conteudos">
 
@@ -1066,18 +1117,31 @@
 
         <div class="grade-conteudos revelar">
 
-            <article class="cartao-conteudo">
-                <span class="etiqueta-conteudo etiqueta-ebook">E-book</span>
-                <h3>Gestão da Propriedade Rural</h3>
-                <!-- TODO: substituir pelo resumo real do conteúdo do e-book -->
-                <p>
-                    Descreva aqui, em 1 ou 2 frases, o que o leitor vai
-                    encontrar neste e-book.
-                </p>
-                <a href="eBooks/ebook_gestao_propriedade_rural_diagramado_v1.pdf"
-                    class="link-conteudo" download target="_blank" rel="noopener">
-                    Baixar e-book (PDF) →
-                </a>
+            <article class="cartao-conteudo cartao-ebook">
+                <div class="capa-ebook">
+                    <!-- TODO: substituir pela capa real do e-book (jpg/png) -->
+                    <img src="eBooks/capas/gestao-propriedade-rural.jpg"
+                        alt="Capa do e-book Gestão da Propriedade Rural"
+                        onerror="this.src='https://placehold.co/600x800?text=Capa+do+E-book'">
+                </div>
+                <div class="corpo-cartao-conteudo">
+                    <span class="etiqueta-conteudo etiqueta-ebook">E-book</span>
+                    <h3>Gestão da Propriedade Rural</h3>
+                    <!-- TODO: substituir pelo resumo real do conteúdo do e-book -->
+                    <p>
+                        Descreva aqui, em 1 ou 2 frases, o que o leitor vai
+                        encontrar neste e-book.
+                    </p>
+                    <a href="eBooks/ebook_gestao_propriedade_rural_diagramado_v1.pdf"
+                        class="botao-baixar-ebook" download target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3v12"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <path d="M5 21h14"></path>
+                        </svg>
+                        Baixar e-book (PDF)
+                    </a>
+                </div>
             </article>
 
         </div>
