@@ -507,45 +507,108 @@ carregarNoticiasAgro();
 
 
     /* ------------------------------------------------------------
-       7. TIRA DE COTAÇÕES DO AGRONEGÓCIO (via API — a implementar)
-       A tira já existe no HTML (#trilhaCotacoes) com 5 itens de
-       exemplo (placeholder: Soja, Milho, Boi Gordo, Café, Dólar).
-       Quando a API de cotações for definida (ex.: CEPEA/Esalq, B3
-       ou outro provedor de commodities), implemente
-       carregarCotacoesAgro() para:
-         1. Buscar os dados (fetch) na API escolhida;
-         2. Montar o HTML de cada item usando a mesma estrutura dos
-            itens de exemplo já presentes no HTML:
-              <span class="item-cotacao">
-                  <span class="nome-cotacao">Nome do produto</span>
-                  <span class="valor-cotacao">R$ 0,00</span>
-                  <span class="variacao-cotacao variacao-alta">▲ 0,0%</span>
-              </span>
-            (troque "variacao-alta" por "variacao-baixa" quando a
-            variação do dia for negativa);
-         3. Substituir o conteúdo de #trilhaCotacoes pelo HTML
-            montado (ex.: trilhaCotacoes.innerHTML = htmlGerado) e
-            chamar inicializarTiraCotacoes() em seguida, para que o
-            efeito de rolagem contínua seja recriado com os dados
-            novos.
-       Por enquanto a função só existe como estrutura (stub) e não
-       faz nenhuma chamada de rede — os itens de exemplo do HTML
-       permanecem visíveis e a tira já rola normalmente.
+       7. TIRA DE COTAÇÕES DO AGRONEGÓCIO
+       A tira já existe no HTML (#trilhaCotacoes) com 5 itens
+       (Soja, Milho, Boi Gordo, Café, Dólar) — esses itens do HTML
+       são o "padrão": aparecem imediatamente ao carregar a página,
+       sem esperar nenhuma rede, e SEMPRE ficam visíveis mesmo se o
+       backend estiver fora do ar. Isso é proposital: a tira nunca
+       deve mostrar "indisponível".
+
+       Em paralelo, carregarCotacoesAgro() tenta buscar valores mais
+       recentes em server.js → /api/cotacoes:
+         - Dólar: buscado automaticamente pelo servidor (API aberta).
+         - Milho, Boi Gordo, Soja, Café Arábica: só existem
+           oficialmente no CEPEA, que não permite bot no site deles
+           — então esses 4 vêm de um arquivo que é atualizado
+           manualmente uma vez por dia (cotacoes-manuais.json, no
+           servidor). O servidor calcula a variação (seta) sozinho.
+
+       Se a busca funcionar, os itens do HTML são atualizados com os
+       valores novos (mantendo a mesma estrutura). Se falhar (rede
+       fora, servidor dormindo, etc.), os itens padrão do HTML
+       continuam exatamente como estavam — nada quebra.
     ------------------------------------------------------------- */
 
-    function carregarCotacoesAgro() {
+    // Valores padrão — os mesmos que já estão no HTML. Usados como
+    // base pra montar cada item e como fallback caso a busca falhe
+    // ou não traga aquele item específico.
+    var COTACOES_PADRAO = {
+        soja: { nome: 'Soja', valor: 'R$ 138,50 / sc', variacaoTexto: '0,8%', variacaoDirecao: 'alta', link: 'https://cepea.org.br/br/categoria/soja-cepea.aspx' },
+        milho: { nome: 'Milho', valor: 'R$ 62,30 / sc', variacaoTexto: '0,3%', variacaoDirecao: 'baixa', link: 'https://cepea.org.br/br/categoria/milho-cepea.aspx' },
+        boiGordo: { nome: 'Boi Gordo', valor: 'R$ 298,00 / @', variacaoTexto: '1,2%', variacaoDirecao: 'alta', link: 'https://cepea.org.br/br/categoria/boi-cepea.aspx' },
+        cafeArabica: { nome: 'Café Arábica', valor: 'R$ 1.980,00 / sc', variacaoTexto: '0,5%', variacaoDirecao: 'baixa', link: 'https://cepea.org.br/br/categoria/cafe-cepea.aspx' },
+        dolar: { nome: 'Dólar', valor: 'R$ 5,42', variacaoTexto: '0,2%', variacaoDirecao: 'alta', link: 'https://www.google.com/finance/quote/USD-BRL' }
+    };
+
+    var ORDEM_COTACOES = ['soja', 'milho', 'boiGordo', 'cafeArabica', 'dolar'];
+    var URL_API_COTACOES = 'https://siteabraao.onrender.com/api/cotacoes';
+
+    // Monta o HTML de um item a partir do padrão acima + qualquer
+    // dado vindo da API (dadoApi), usando o dado da API quando
+    // existir e caindo pro padrão quando não.
+    function htmlItemCotacao(chave, dadoApi) {
+        var padrao = COTACOES_PADRAO[chave];
+        var nome = (dadoApi && dadoApi.nome) || padrao.nome;
+        var valor = (dadoApi && dadoApi.valor) || padrao.valor;
+        var variacaoTexto = padrao.variacaoTexto;
+        var variacaoDirecao = padrao.variacaoDirecao;
+
+        if (dadoApi && dadoApi.variacao) {
+            variacaoTexto = dadoApi.variacao.texto.replace('+', '').replace('-', '');
+            variacaoDirecao = dadoApi.variacao.direcao;
+        }
+
+        var seta = variacaoDirecao === 'alta' ? '▲' : '▼';
+
+        return `
+            <a class="item-cotacao" href="${padrao.link}" target="_blank" rel="noopener noreferrer">
+                <span class="nome-cotacao">${nome}</span>
+                <span class="valor-cotacao">${valor}</span>
+                <span class="variacao-cotacao variacao-${variacaoDirecao}">${seta} ${variacaoTexto}</span>
+            </a>
+        `;
+    }
+
+    function renderizarTiraCotacoes(dadosApi) {
         var trilhaCotacoes = document.getElementById('trilhaCotacoes');
         if (!trilhaCotacoes) return;
 
-        // TODO: substituir pelo fetch() real da API de cotações escolhida.
-        // Exemplo de estrutura esperada da resposta (ajustar conforme a API):
-        // [{ nome: 'Soja', valor: 'R$ 138,50 / sc', variacao: 0.8 }, ...]
+        var htmlGerado = ORDEM_COTACOES
+            .map(function (chave) { return htmlItemCotacao(chave, dadosApi && dadosApi[chave]); })
+            .join('');
+
+        trilhaCotacoes.innerHTML = htmlGerado;
+        inicializarTiraCotacoes();
+    }
+
+    async function carregarCotacoesAgro() {
+        // Já renderiza com os valores padrão imediatamente — a tira
+        // não espera a rede pra aparecer.
+        renderizarTiraCotacoes(null);
+
+        // Em paralelo, tenta buscar valores atualizados. Se der
+        // certo, re-renderiza por cima; se falhar, os valores padrão
+        // que já estão na tela continuam do jeito que estão.
+        try {
+            var resposta = await fetch(URL_API_COTACOES);
+            if (resposta.ok) {
+                var dados = await resposta.json();
+                if (dados && Object.keys(dados).length > 0) {
+                    renderizarTiraCotacoes(dados);
+                }
+            } else {
+                console.error('Cotações: backend respondeu HTTP ' + resposta.status + ' — mantendo valores padrão.');
+            }
+        } catch (erro) {
+            console.error('Cotações: não consegui buscar valores atualizados — mantendo valores padrão.', erro);
+        }
     }
 
     // Duplica os itens da tira para criar o efeito de rolagem contínua
     // (marquee), sem "pulo" perceptível no fim da trilha. Pode ser
     // chamada de novo com segurança sempre que o conteúdo da tira mudar
-    // (ex.: depois de carregarCotacoesAgro() trocar os itens pela API).
+    // (ex.: depois de renderizarTiraCotacoes() trocar os itens pela API).
     function inicializarTiraCotacoes() {
         var trilhaCotacoes = document.getElementById('trilhaCotacoes');
         if (!trilhaCotacoes) return;
@@ -564,9 +627,7 @@ carregarNoticiasAgro();
         });
     }
 
-    // Descomentar quando a API de cotações estiver pronta:
-    // carregarCotacoesAgro();
-    inicializarTiraCotacoes();
+    carregarCotacoesAgro();
 
 
     /* ------------------------------------------------------------

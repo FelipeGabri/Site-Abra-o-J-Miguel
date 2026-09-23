@@ -22,36 +22,37 @@
 
     <!-- ============================================================
          TIRA DE COTAÇÕES DO AGRONEGÓCIO (mesma estrutura da home —
-         ver comentário completo em index.html e a função
-         carregarCotacoesAgro() em script.js)
+         ver comentário completo em index.html)
     ============================================================= -->
     <div class="tira-cotacoes" id="tiraCotacoes" role="region" aria-label="Cotações do agronegócio">
         <div class="trilha-cotacoes" id="trilhaCotacoes">
-            <span class="item-cotacao">
+            <!-- Itens padrão — substituídos por valores atualizados quando
+                 a API responde (ver script.js, seção "7. TIRA DE COTAÇÕES") -->
+            <a class="item-cotacao" href="https://cepea.org.br/br/categoria/soja-cepea.aspx" target="_blank" rel="noopener noreferrer">
                 <span class="nome-cotacao">Soja</span>
                 <span class="valor-cotacao">R$ 138,50 / sc</span>
                 <span class="variacao-cotacao variacao-alta">▲ 0,8%</span>
-            </span>
-            <span class="item-cotacao">
+            </a>
+            <a class="item-cotacao" href="https://cepea.org.br/br/categoria/milho-cepea.aspx" target="_blank" rel="noopener noreferrer">
                 <span class="nome-cotacao">Milho</span>
                 <span class="valor-cotacao">R$ 62,30 / sc</span>
                 <span class="variacao-cotacao variacao-baixa">▼ 0,3%</span>
-            </span>
-            <span class="item-cotacao">
+            </a>
+            <a class="item-cotacao" href="https://cepea.org.br/br/categoria/boi-cepea.aspx" target="_blank" rel="noopener noreferrer">
                 <span class="nome-cotacao">Boi Gordo</span>
                 <span class="valor-cotacao">R$ 298,00 / @</span>
                 <span class="variacao-cotacao variacao-alta">▲ 1,2%</span>
-            </span>
-            <span class="item-cotacao">
+            </a>
+            <a class="item-cotacao" href="https://cepea.org.br/br/categoria/cafe-cepea.aspx" target="_blank" rel="noopener noreferrer">
                 <span class="nome-cotacao">Café Arábica</span>
                 <span class="valor-cotacao">R$ 1.980,00 / sc</span>
                 <span class="variacao-cotacao variacao-baixa">▼ 0,5%</span>
-            </span>
-            <span class="item-cotacao">
+            </a>
+            <a class="item-cotacao" href="https://www.google.com/finance/quote/USD-BRL" target="_blank" rel="noopener noreferrer">
                 <span class="nome-cotacao">Dólar</span>
                 <span class="valor-cotacao">R$ 5,42</span>
                 <span class="variacao-cotacao variacao-alta">▲ 0,2%</span>
-            </span>
+            </a>
         </div>
     </div>
 
@@ -80,21 +81,10 @@
 
     <!-- ============================================================
          LISTAGEM COMPLETA DE NOTÍCIAS (via API própria)
-         Os botões de filtro abaixo usam data-categoria correspondendo
-         às subcategorias aceitas pelo backend (server.js):
-           - geral   → Agronegócio em geral
-           - direito → Agro Direito (crédito rural, contratos, etc.)
-           - gestao  → Agro Gestão (gestão e planejamento da propriedade)
-         A lógica de carregamento e troca de filtro está em script.js,
-         seção "8. PÁGINA COMPLETA DE NOTÍCIAS".
+         A lógica de carregamento está em script.js, seção
+         "8. PÁGINA COMPLETA DE NOTÍCIAS".
     ============================================================= -->
     <section class="secao-noticias-completa" id="noticias-completas">
-
-        <div class="filtros-categoria-noticias">
-            <button type="button" class="botao-filtro-categoria ativo" data-categoria="geral">Todas</button>
-            <button type="button" class="botao-filtro-categoria" data-categoria="direito">Agro Direito</button>
-            <button type="button" class="botao-filtro-categoria" data-categoria="gestao">Agro Gestão</button>
-        </div>
 
         <a class="noticia-destaque" id="noticiaDestaque" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
             <div class="imagem-destaque">

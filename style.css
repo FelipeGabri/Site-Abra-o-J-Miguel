@@ -213,6 +213,13 @@ section h2 {
     display: inline-flex;
     align-items: baseline;
     gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity .15s ease;
+}
+
+.item-cotacao:hover {
+    opacity: .8;
 }
 
 .nome-cotacao {

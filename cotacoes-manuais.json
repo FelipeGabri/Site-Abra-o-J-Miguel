@@ -1,0 +1,24 @@
+{
+  "_leiaMe": "Atualize o campo 'valor' de cada item com o número do indicador do dia, publicado em cepea.org.br (menu Indicadores > Milho / Boi / Soja / Café). Troque também 'atualizadoEm' para a data de hoje (formato AAAA-MM-DD). O servidor calcula a variação (seta pra cima/baixo) sozinho, comparando com o valor salvo do dia anterior — não precisa mexer em mais nada. 'unidade' é só o texto mostrado depois do valor (ex.: 'saca 60kg', '@').",
+
+  "milho": {
+    "valor": 68.50,
+    "unidade": "saca 60kg",
+    "atualizadoEm": "2026-09-22"
+  },
+  "boiGordo": {
+    "valor": 346.90,
+    "unidade": "@",
+    "atualizadoEm": "2026-09-22"
+  },
+  "soja": {
+    "valor": 128.30,
+    "unidade": "saca 60kg",
+    "atualizadoEm": "2026-09-22"
+  },
+  "cafeArabica": {
+    "valor": 2150.00,
+    "unidade": "saca 60kg",
+    "atualizadoEm": "2026-09-22"
+  }
+}
