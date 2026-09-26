@@ -181,10 +181,25 @@ const DOMINIOS_AGRO = [
 // Termos de busca NO TÍTULO da matéria, por subcategoria.
 // "geral" é propositalmente ampla (agro no sentido amplo) porque os
 // domínios acima já garantem que é tudo sobre agronegócio.
+// Termos excluídos de TODAS as buscas (mesmo dentro dos portais de
+// agro, uma matéria pode falar de política, crime ou violência —
+// isso é filtrado aqui, no título da matéria).
+const TERMOS_EXCLUIDOS =
+    'NOT (política OR político OR eleição OR eleições OR eleitoral OR ' +
+    'presidente OR presidenciais OR ministro OR ministério OR governo OR ' +
+    'congresso OR senado OR câmara OR STF OR STJ OR TSE OR partido OR ' +
+    'crime OR crimes OR criminoso OR homicídio OR homicídios OR assassinato OR ' +
+    'assassinatos OR assassinado OR assassinada OR morte OR mortes OR morto OR ' +
+    'morta OR mortos OR mortas OR morreu OR morreram OR faleceu OR faleceram OR ' +
+    'falecimento OR óbito OR óbitos OR vítima OR vítimas OR luto OR funeral OR ' +
+    'velório OR violência OR violento OR polícia OR policial OR prisão OR preso OR ' +
+    'presa OR tiroteio OR chacina OR estupro OR tráfico OR acidente OR tragédia OR ' +
+    'guerra OR conflito)';
+
 const QUERIES_POR_CATEGORIA = {
-    geral: '(agro OR agronegócio OR agropecuária OR agricultura OR agronomia OR rural OR lavoura OR safra OR pecuária)',
-    direito: '(direito OR jurídico OR jurídica OR "crédito rural" OR fundiária OR fundiário OR contrato OR PRONAF OR CPR OR CRA OR regularização OR sucessão)',
-    gestao: '(gestão OR planejamento OR "propriedade rural" OR sucessório OR administração OR investimento OR custeio OR financiamento)'
+    geral: '(agro OR agronegócio OR agropecuária OR agricultura OR agronomia OR rural OR lavoura OR safra OR pecuária) ' + TERMOS_EXCLUIDOS,
+    direito: '(direito OR jurídico OR jurídica OR "crédito rural" OR fundiária OR fundiário OR contrato OR PRONAF OR CPR OR CRA OR regularização OR sucessão) ' + TERMOS_EXCLUIDOS,
+    gestao: '(gestão OR planejamento OR "propriedade rural" OR sucessório OR administração OR investimento OR custeio OR financiamento) ' + TERMOS_EXCLUIDOS
 };
 
 // Cache em memória — 1 hora de duração — para economizar ao máximo

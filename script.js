@@ -608,18 +608,58 @@ carregarNoticiasAgro();
     // Duplica os itens da tira para criar o efeito de rolagem contínua
     // (marquee), sem "pulo" perceptível no fim da trilha. Pode ser
     // chamada de novo com segurança sempre que o conteúdo da tira mudar
-    // (ex.: depois de renderizarTiraCotacoes() trocar os itens pela API).
+    // (ex.: depois de renderizarTiraCotacoes() trocar os itens pela API)
+    // ou sempre que a tela for redimensionada.
+    //
+    // IMPORTANTE: se um único conjunto de cotações (Soja, Milho, Boi
+    // Gordo, Café, Dólar) for mais ESTREITO que a tela, a duplicação
+    // simples (1x) deixa um vão em branco pouco antes do loop reiniciar
+    // — é esse vão que aparece como "salto" visível. Por isso, primeiro
+    // repetimos o conjunto original o quanto for necessário até cobrir
+    // a largura da tela, e só então duplicamos tudo mais uma vez (essa
+    // segunda metade é o que faz o translateX(-50%) do CSS rolar sem
+    // emenda visível).
     function inicializarTiraCotacoes() {
+        var tiraCotacoes = document.getElementById('tiraCotacoes');
         var trilhaCotacoes = document.getElementById('trilhaCotacoes');
         if (!trilhaCotacoes) return;
 
-        // Remove clones de uma inicialização anterior antes de duplicar de novo
+        // Remove clones de uma inicialização anterior antes de recalcular
         trilhaCotacoes.querySelectorAll('[data-clone-cotacao="true"]').forEach(function (clone) {
             clone.remove();
         });
 
         var itensOriginais = Array.prototype.slice.call(trilhaCotacoes.children);
-        itensOriginais.forEach(function (item) {
+        if (itensOriginais.length === 0) return;
+
+        // Meio da trilha (o bloco que translateX(-50%) usa) precisa ser
+        // pelo menos tão largo quanto a tela, com uma margem de folga.
+        var larguraNecessaria = (tiraCotacoes ? tiraCotacoes.offsetWidth : window.innerWidth) * 1.15;
+        var tentativasMaximas = 20; // trava de segurança contra loop infinito
+
+        while (trilhaCotacoes.scrollWidth < larguraNecessaria && tentativasMaximas > 0) {
+            itensOriginais.forEach(function (item) {
+                var clone = item.cloneNode(true);
+                clone.setAttribute('data-clone-cotacao', 'true');
+                trilhaCotacoes.appendChild(clone);
+            });
+            tentativasMaximas--;
+        }
+
+        // Largura de "meio de trilha" (o que o loop translateX(-50%)
+        // percorre). Usada para manter a VELOCIDADE de rolagem sempre
+        // igual, mesmo quando o conjunto precisou ser repetido várias
+        // vezes para cobrir telas largas (senão, quanto mais repetições,
+        // mais rápido pareceria rolar no mesmo tempo fixo de 26s).
+        var larguraMeioTrilha = trilhaCotacoes.scrollWidth;
+        var VELOCIDADE_PX_POR_SEGUNDO = 45;
+        var duracaoSegundos = Math.max(larguraMeioTrilha / VELOCIDADE_PX_POR_SEGUNDO, 10);
+        trilhaCotacoes.style.animationDuration = duracaoSegundos + 's';
+
+        // Duplica tudo o que está na trilha agora (original + repetições
+        // acima) mais uma vez — essa é a metade "espelho" do loop.
+        var itensParaDuplicarLoop = Array.prototype.slice.call(trilhaCotacoes.children);
+        itensParaDuplicarLoop.forEach(function (item) {
             var clone = item.cloneNode(true);
             clone.setAttribute('aria-hidden', 'true');
             clone.setAttribute('data-clone-cotacao', 'true');
@@ -628,6 +668,14 @@ carregarNoticiasAgro();
     }
 
     carregarCotacoesAgro();
+
+    // Recalcula a tira ao redimensionar a janela (ex.: girar o celular,
+    // maximizar a janela do navegador), já que a largura necessária muda.
+    var redimensionamentoCotacoes;
+    window.addEventListener('resize', function () {
+        clearTimeout(redimensionamentoCotacoes);
+        redimensionamentoCotacoes = setTimeout(inicializarTiraCotacoes, 200);
+    });
 
 
     /* ------------------------------------------------------------
@@ -652,23 +700,20 @@ carregarNoticiasAgro();
         var IMAGEM_PADRAO_NOTICIA = 'https://placehold.co/1200x500?text=Agronegócio';
         var QUANTIDADE_POR_PAGINA = 12; // itens da grade por página (fora o destaque)
 
-        var botoesFiltroCategoria = document.querySelectorAll('.botao-filtro-categoria');
+        // Sem filtro de subcategoria: a página só mostra notícias
+        // gerais de agronegócio (categoria fixa "geral" no backend,
+        // que já exclui política, crimes e violência — ver server.js).
+        var CATEGORIA_FIXA = 'geral';
+        var ROTULO_CATEGORIA = 'Agronegócio';
+
         var elementoDestaque = document.getElementById('noticiaDestaque');
         var acaoCarregarMais = document.getElementById('acaoCarregarMais');
         var botaoCarregarMais = document.getElementById('botaoCarregarMais');
 
-        var categoriaAtual = 'geral';
         var paginaAtual = 1;
         var carregandoMais = false;
 
-        // Rótulo amigável exibido no card, por categoria
-        var ROTULOS_CATEGORIA = {
-            geral: 'Agronegócio',
-            direito: 'Agro Direito',
-            gestao: 'Agro Gestão'
-        };
-
-        function criarCartaoNoticia(artigo, rotulo) {
+        function criarCartaoNoticia(artigo) {
             var data = artigo.data
                 ? new Date(artigo.data).toLocaleDateString('pt-BR')
                 : '';
@@ -679,7 +724,7 @@ carregarNoticiasAgro();
                         <img src="${artigo.imagem || IMAGEM_PADRAO_NOTICIA}" alt="${artigo.titulo}" onerror="this.src='${IMAGEM_PADRAO_NOTICIA}'">
                     </div>
                     <div class="conteudo-noticia">
-                        <span class="categoria-noticia">${rotulo}</span>
+                        <span class="categoria-noticia">${ROTULO_CATEGORIA}</span>
                         <h3>${artigo.titulo}</h3>
                         <p>${artigo.resumo}</p>
                         <span class="fonte-noticia">${artigo.fonte} · ${data}</span>
@@ -688,7 +733,7 @@ carregarNoticiasAgro();
             `;
         }
 
-        function preencherDestaque(artigo, rotulo) {
+        function preencherDestaque(artigo) {
             if (!elementoDestaque || !artigo) return;
 
             var data = artigo.data
@@ -701,16 +746,16 @@ carregarNoticiasAgro();
             elementoDestaque.querySelector('img').onerror = function () {
                 this.src = IMAGEM_PADRAO_NOTICIA;
             };
-            elementoDestaque.querySelector('.categoria-noticia').textContent = rotulo;
+            elementoDestaque.querySelector('.categoria-noticia').textContent = ROTULO_CATEGORIA;
             elementoDestaque.querySelector('h2').textContent = artigo.titulo;
             elementoDestaque.querySelector('p').textContent = artigo.resumo;
             elementoDestaque.querySelector('.fonte-noticia').textContent = artigo.fonte + ' · ' + data;
             elementoDestaque.style.display = '';
         }
 
-        async function buscarNoticias(categoria, pagina, limite) {
+        async function buscarNoticias(pagina, limite) {
             var url = URL_BASE_API_NOTICIAS
-                + '?categoria=' + encodeURIComponent(categoria)
+                + '?categoria=' + encodeURIComponent(CATEGORIA_FIXA)
                 + '&limite=' + limite
                 + '&pagina=' + pagina;
 
@@ -724,10 +769,9 @@ carregarNoticiasAgro();
             return dados.artigos || [];
         }
 
-        // Carrega do zero: reseta a grade, busca a página 1 (destaque +
-        // primeiros itens da grade) para a categoria escolhida
-        async function carregarNoticiasCompletas(categoria) {
-            categoriaAtual = categoria;
+        // Carrega do zero: reseta a grade e busca a página 1
+        // (destaque + primeiros itens da grade)
+        async function carregarNoticiasCompletas() {
             paginaAtual = 1;
 
             if (elementoDestaque) elementoDestaque.style.display = 'none';
@@ -737,8 +781,7 @@ carregarNoticiasAgro();
 
             try {
                 // Pede destaque + 1ª página da grade em uma única chamada
-                var artigos = await buscarNoticias(categoria, 1, QUANTIDADE_POR_PAGINA + 1);
-                var rotulo = ROTULOS_CATEGORIA[categoria] || 'Agronegócio';
+                var artigos = await buscarNoticias(1, QUANTIDADE_POR_PAGINA + 1);
 
                 if (artigos.length === 0) {
                     gradeNoticiasCompleta.innerHTML =
@@ -749,10 +792,10 @@ carregarNoticiasAgro();
                 var destaque = artigos[0];
                 var restante = artigos.slice(1);
 
-                preencherDestaque(destaque, rotulo);
+                preencherDestaque(destaque);
 
                 gradeNoticiasCompleta.innerHTML = restante
-                    .map(function (artigo) { return criarCartaoNoticia(artigo, rotulo); })
+                    .map(function (artigo) { return criarCartaoNoticia(artigo); })
                     .join('');
 
                 // Só mostra "carregar mais" se a página trouxe o total
@@ -782,8 +825,7 @@ carregarNoticiasAgro();
 
             try {
                 var proximaPagina = paginaAtual + 1;
-                var artigos = await buscarNoticias(categoriaAtual, proximaPagina, QUANTIDADE_POR_PAGINA);
-                var rotulo = ROTULOS_CATEGORIA[categoriaAtual] || 'Agronegócio';
+                var artigos = await buscarNoticias(proximaPagina, QUANTIDADE_POR_PAGINA);
 
                 if (artigos.length === 0) {
                     if (acaoCarregarMais) acaoCarregarMais.style.display = 'none';
@@ -793,7 +835,7 @@ carregarNoticiasAgro();
                 paginaAtual = proximaPagina;
 
                 var htmlNovo = artigos
-                    .map(function (artigo) { return criarCartaoNoticia(artigo, rotulo); })
+                    .map(function (artigo) { return criarCartaoNoticia(artigo); })
                     .join('');
 
                 gradeNoticiasCompleta.insertAdjacentHTML('beforeend', htmlNovo);
@@ -814,25 +856,11 @@ carregarNoticiasAgro();
             }
         }
 
-        botoesFiltroCategoria.forEach(function (botao) {
-            botao.addEventListener('click', function () {
-                botoesFiltroCategoria.forEach(function (b) {
-                    b.classList.remove('ativo');
-                });
-                botao.classList.add('ativo');
-                carregarNoticiasCompletas(botao.dataset.categoria);
-            });
-        });
-
         if (botaoCarregarMais) {
             botaoCarregarMais.addEventListener('click', carregarMaisNoticias);
         }
 
-        // Carrega a categoria inicial (a que já vier marcada como "ativo" no HTML)
-        var botaoInicial = document.querySelector('.botao-filtro-categoria.ativo') || botoesFiltroCategoria[0];
-        if (botaoInicial) {
-            carregarNoticiasCompletas(botaoInicial.dataset.categoria);
-        }
+        carregarNoticiasCompletas();
     }
 
 });
